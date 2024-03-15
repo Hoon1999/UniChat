@@ -9,7 +9,5 @@ public class KnungApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(KnungApplication.class, args);
 	}
-	//hoons test
-	//chanho test
-	//sugyoung test
+	// last test
 }
