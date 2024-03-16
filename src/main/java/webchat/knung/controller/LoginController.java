@@ -31,7 +31,6 @@ public class LoginController {
     @PostMapping(value = "/register")
     public String register(MemberForm form) {
         Member member = new Member();
-        member.setId(form.getId());
         member.setM_id(form.getM_id());
         member.setPassword(form.getPassword());
         member.setEmail(form.getEmail());
