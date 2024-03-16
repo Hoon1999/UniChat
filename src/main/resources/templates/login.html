@@ -1,10 +1,128 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>로그인</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: "Noto Sans CJK KR";
+            font-style: normal;
+        }
+
+        body {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+        }
+
+        .member-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 470px;
+            height: auto; /* 높이를 자동으로 조절하도록 변경 */
+            margin-top: 72px;
+            margin-bottom: 70px;
+        }
+
+        .header {
+            width: 466px;
+            height: 94px;
+            font-weight: 700;
+            font-size: 30px;
+            line-height: 47px;
+            color: #574438;
+            text-align: center;
+        }
+
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 466px;
+            margin-top: 21px;
+        }
+
+        .user-info input {
+            border: none;
+            border-bottom: 1px solid #cfcfcf;
+            width: 100%;
+            height: 30px;
+            margin-top: 8px;
+            padding: 5px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            color: #797979;
+            outline: none;
+        }
+
+        button {
+            font-weight: 400;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 27px;
+            text-align: center;
+            border-radius: 10px;
+
+        }
+
+        .login1{
+            margin-top: 10px;
+            width: 470px;
+            height: 75px;
+            font-weight: 400;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 27px;
+            text-align: center;
+            color: #ffffff;
+            background: #88f87b;
+            border: 1px solid #F19759;
+            border-radius: 10px;
+
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .But_check {
+            width: 150px; /* 버튼의 너비를 줄여서 옆으로 배치될 수 있도록 조정 */
+            height: 75px;
+            font-weight: 400;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 27px;
+            text-align: center;
+            color: black;
+            background: none;
+            border: none;
+        }
+    </style>
 </head>
 <body>
-테스트 페이지
+<section class="container">
+    <section class="member-container">
+
+        <section class="header">
+            <section>로그인</section>
+        </section>
+        <br><br>
+        <form action="login.jsp" method="post" class="user-info">
+            <input type="text" id="Id" name="Id" placeholder="* 아이디" /><br><br>
+            <input type="password" id="password" name="password" placeholder="* 비밀번호"/><br><br>
+
+            <button class="login1" id="login" type="submit">로그인</button>
+            <div class="button-group">
+                <button class="But_check" onclick="location.href='join.html'"  type="submit">회원가입</button>
+                <button class="But_check" id="Find_Username" type="submit">아이디 찾기</button>
+                <button class="But_check" type="Find_Password" >비밀번호 찾기</button>
+            </div>
+        </form>
+    </section>
+</section>
 </body>
 </html>
