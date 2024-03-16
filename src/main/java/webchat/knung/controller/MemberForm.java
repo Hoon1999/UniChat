@@ -2,7 +2,7 @@ package webchat.knung.controller;
 
 public class MemberForm {
     long id;
-    String m_id;
+    String mid;
     String password;
     String email;
     String qna;
@@ -16,12 +16,12 @@ public class MemberForm {
         this.id = id;
     }
 
-    public String getM_id() {
-        return m_id;
+    public String getMid() {
+        return mid;
     }
 
-    public void setM_id(String m_id) {
-        this.m_id = m_id;
+    public void setMid(String mid) {
+        this.mid = mid;
     }
 
     public String getPassword() {

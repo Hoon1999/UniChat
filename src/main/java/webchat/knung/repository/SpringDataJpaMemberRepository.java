@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface SpringDataJpaMemberRepository extends JpaRepository<Member, Long>, MemberRepository{
     @Override
-    Optional<Member> findByM_id(String m_id);
+    Optional<Member> findByMid(String mid);
 
     @Override
     Optional<Member> findByEmail(String email);
@@ -19,5 +19,5 @@ public interface SpringDataJpaMemberRepository extends JpaRepository<Member, Lon
     Optional<Member> findByEmailAndQna(String email, String qna);
 
     @Override
-    Optional<Member> findByM_idAndEmailAndQna(String m_id, String email, String qna);
+    Optional<Member> findByMidAndEmailAndQna(String mid, String email, String qna);
 }

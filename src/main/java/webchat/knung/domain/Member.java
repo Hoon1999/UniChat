@@ -9,15 +9,15 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", unique = true, nullable = false)
     long id;
-    @Column(name = "m_id", unique = true, nullable = false)
-    String m_id;
-    @Column(name = "pw", nullable = false)
+    @Column(name = "mid", unique = true, nullable = true)
+    String mid;
+    @Column(name = "pw", nullable = true)
     String password;
-    @Column(name = "email", unique = true, nullable = false)
+    @Column(name = "email", unique = true, nullable = true)
     String email;
-    @Column(name = "qna", nullable = false)
+    @Column(name = "qna", nullable = true)
     String qna;
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = true)
     String name;
 
     public long getId() {
@@ -28,12 +28,12 @@ public class Member {
         this.id = id;
     }
 
-    public String getM_id() {
-        return m_id;
+    public String getMid() {
+        return mid;
     }
 
-    public void setM_id(String m_id) {
-        this.m_id = m_id;
+    public void setMid(String mid) {
+        this.mid = mid;
     }
 
     public String getPassword() {
