@@ -1,184 +1,59 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="utf-8">
-    <title>Id find</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카카오톡 프로필</title>
     <style>
-        * {
-            box-sizing: border-box;
-            font-family: "Noto Sans CJK KR";
-            font-style: normal;
-        }
-
         body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
             display: flex;
-            flex-direction: row;
             justify-content: center;
-        }
-
-
-        .member-container {
-            display: flex;
-            flex-direction: column;
             align-items: center;
-            width: 470px;
-            height: 818px;
-            margin-top: 72px;
-            margin-bottom: 70px;
+            height: 100vh;
         }
 
-        .header {
-            width: 466px;
-            font-weight: 700;
-            font-size: 27px;
-            line-height: 47px;
-            color: #574438;
-            text-align: center;
-        }
-
-        .user-info {
-            flex-direction: column;
-            align-items: flex-start;
-            width: 466px;
-            margin-top: 21px;
-        }
-
-        .user-info input {
-            border: none;
-            border-bottom: 1px solid #cfcfcf;
-            width: 100%;
-            height: 30px;
-            margin-top: 8px;
-            padding: 5px;
-            font-weight: 400;
-            font-size: 16px;
-            line-height: 24px;
-            color: #797979;
-            outline: none;
-        }
-
-        .agree-check {
-            width: 454px;
-            height: 21.06px;
-            margin-top: 52.05px;
-            font-weight: 400;
-            font-size: 12px;
-            line-height: 21px;
-            color: #000000;
-        }
-
-        .btn {
-            display: flex;
-            flex-direction: column;
-            margin-top: 60px;
-            width: 470px;
-            height: 80px;
-            border-top: 1px solid #e6e6e6;
-        }
-
-        button {
-            margin-top: 15px;
-            width: 470px;
-            height: 75px;
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 27px;
-            text-align: center;
-            color: #ffffff;
-            background: #88f87b;
-            border: 1px solid #e39864;
+        .container {
+            max-width: 400px;
+            background-color: #fff;
             border-radius: 10px;
-        }
-        .select_1234{
-            width: 475px;
-            height: 50px;
-            font-size: 13px;
-            margin-bottom: 15px;
-
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
         }
 
-        .notice{
-            color: #cfcfcf;
-            width:600px;
-            letter-spacing: 3px;
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            object-fit: cover;
         }
+
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .status {
+            font-size: 16px;
+            color: #666;
+        }
+
     </style>
-    <!--    <script>-->
-    <!--        //패스워드 체크-->
-    <!--        function passwordCheck() {-->
-    <!--            var pass = document.getElementById("password").value;-->
-    <!--            var pass_check = document.getElementById("confirmPassword").value;-->
-    <!--            var btn = document.getElementById("button");-->
-    <!--            if (pass_check != pass) {-->
-    <!--                btn.disabled = true;-->
-    <!--                alert("비밀번호가 동일하지 않습니다.");-->
-    <!--            }-->
-    <!--            else{-->
-    <!--                btn.disabled = false;-->
-    <!--            }-->
-    <!--        }-->
-    <!--        //아이디 체크-->
-    <!--        var xmlhttp = false;-->
-    <!--        if (window.XMLHttpRequest) {-->
-    <!--            xmlhttp = new XMLHttpRequest();-->
-    <!--            xmlhttp.overrideMimeType('text/xml');-->
-    <!--        }-->
-
-    <!--        function Data() {-->
-    <!--            var Id = document.getElementById('Id').value;-->
-    <!--            var url = 'IdCheck.jsp?Id=' + Id;-->
-    <!--            xmlhttp.open('GET', url, true);-->
-    <!--            xmlhttp.onreadystatechange = getData;-->
-    <!--            xmlhttp.send(null);-->
-    <!--        }-->
-
-    <!--        function getData() {-->
-    <!--            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {-->
-    <!--                document.getElementById('ICheck').innerHTML = xmlhttp.responseText;-->
-    <!--            }-->
-    <!--        }-->
-    <!--        //버튼체크-->
-    <!--        function nullData() {-->
-    <!--            var email = document.getElementById("email").value;-->
-    <!--            var name = document.getElementById("name").value;-->
-    <!--            var id = document.getElementById("Id").value;-->
-    <!--            var password = document.getElementById("password").value;-->
-    <!--            var confirmPassword = document.getElementById("confirmPassword").value;-->
-    <!--            var phone = document.getElementById("phone").value;-->
-    <!--            var btn = document.getElementById("button");-->
-
-    <!--            if (email == "" || name == "" || id == "" || password == "" || confirmPassword == "" || phone === "") {-->
-    <!--                alert("빈 값을 체크해주세요.");-->
-    <!--                return false;-->
-    <!--            } else {-->
-    <!--                return true;-->
-    <!--            }-->
-    <!--        }-->
-
-    <!--    </script>-->
 </head>
 <body>
-<section class="container">
-    <section class="member-container">
 
-        <section class="header">
-            <section>비밀번호 찾기</section>
-        </section>
-        <br><br>
-        <form action="login.html" method="post" class="user-info" onsubmit="return nullData()">
-            <input type="email" id="email" name ="Email" placeholder="* 이메일" /><br><br>
-            <h2>질문을 선택해주세요</h2>
-            <select name="like" class="select_1234">
-                <option disabled selected>선택해주세요</option>
-                <option value="1">내가 좋아하는 과일은?</option>
-                <option value="2">나의 첫 반려동물은?</option>
-                <option value="3">내가 태어난 곳은?</option>
-                <option value="4">좋아하는 캐릭터는?</option>
-            </select>
-            <p class="notice"> 가입 시 적었던 질문과 답변을 알맞게 작성해주세요.      </p>
-            <button class="button" id="button" type="submit">가입하기</button>
-        </form>
-    </section>
-</section>
+<div class="container">
+    <img class="profile-img" src="profile.jpg" alt="프로필 사진">
+    <div class="name">홍길동</div>
+    <div class="status">지금 온라인</div>
+</div>
+
 </body>
 </html>
