@@ -11,10 +11,12 @@ create table member
     unique (email)
 );
 
+drop table if exists participatingChatRoom;
 create table participatingChatRoom
 (
     id bigint,
     chat_id bigint,
+    chat_seq int,
     last_date timestamp,
     primary key(id, chat_id)
 );
