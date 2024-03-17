@@ -12,7 +12,5 @@ public class ChatRoom {
     @Column(name = "name", nullable = false)
     String name;
 
-    @ManyToOne
-    @JoinColumn(name = "id")
-    Member member;
+
 }

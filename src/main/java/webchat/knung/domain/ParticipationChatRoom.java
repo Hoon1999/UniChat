@@ -24,4 +24,7 @@ public class ParticipationChatRoom {
     @ManyToOne
     @JoinColumn(name = "chat_id")
     ChatRoom chatRoom;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    Member member;
 }
