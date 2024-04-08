@@ -1,11 +1,18 @@
 package webchat.knung.controller;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import webchat.knung.domain.Member;
+import webchat.knung.dto.ChatRoomDto;
+import webchat.knung.dto.MessageDto;
 import webchat.knung.service.ChatService;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Controller
 public class ChatController {
@@ -19,14 +26,38 @@ public class ChatController {
     public String chatRoom() {
         return "chatRoom";
     }
-    @PostMapping(value = "chatRoom")
+    @PostMapping(value = "/chatRoom")
     @ResponseBody
-    public Object chatRoomList() {
+    public List<ChatRoomDto> chatRoomList(HttpSession session) {
         Member member = new Member();
-        JSON 객체변수 만듬;
-
-        member.setId(세션에서 유저아이디를 가져옴);
-        JSON 객체변수 = chatService.listSearch(member);
-        return JSON 객체변수;
+        member.setLoginId((String) session.getAttribute("loginId"));
+        return chatService.listSearch(member);
     }
+
+    /**
+     * 클라이언트에서 서버로 메시지 전송
+     * Get 방식으로 memberId 와 chatRoomId 를 받으면 위험하다고 생각
+     * @param msg
+     * @return
+     */
+    @PostMapping(value = "sendMessage")
+    @ResponseBody
+    public LocalDateTime sendMessage(@RequestParam("memberId") Long memberId,
+                                     @RequestParam("chatRoomId") Long chatRoomId,
+                                     @RequestParam("msg") String msg) {
+        LocalDateTime sendTime = chatService.sendMessage(
+                memberId,
+                chatRoomId,
+                msg);
+
+        return sendTime;
+    }
+
+    // 서버에서 클라이언트로 메세지를 보냄
+    @GetMapping(value = "loadMessage")
+    @ResponseBody
+    public List<MessageDto> loadMessage(@RequestParam("chatRoomId") Long chatRoomId, @RequestParam("lastTime") LocalDateTime lastTime) {
+        return chatService.loadMessage(chatRoomId, lastTime);
+    }
+
 }

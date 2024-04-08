@@ -2,14 +2,19 @@ package webchat.knung.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import webchat.knung.domain.ChatMessage;
 import webchat.knung.domain.Member;
+import webchat.knung.dto.ChatRoomDto;
+import webchat.knung.dto.MessageDto;
+import webchat.knung.repository.MessageRepository;
+import webchat.knung.repository.ParticipationChatRoomRepository;
+
+import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @Transactional
 public class ChatService {
-    public void listSearch(Member member) {
-        member 에서 id를 꺼냄;
-        꺼낸 id로 db에 내가 속한 채팅방 조회;
     ParticipationChatRoomRepository participationChatRoomRepository;
     MessageRepository messageRepository;
 
@@ -20,5 +25,13 @@ public class ChatService {
 
     public List<ChatRoomDto> listSearch(Member member) {
         return participationChatRoomRepository.findByMemberId(member.getMemberId());
+    }
+    public List<MessageDto> loadMessage(Long chatRoomId, LocalDateTime time) {
+        return messageRepository.findByReceiverIdAndSendTimeGreaterThanEqual(chatRoomId, time);
+    }
+    public LocalDateTime sendMessage(Long memberId, Long chatRoomId, String msg) {
+        ChatMessage chatMessage = new ChatMessage(memberId, chatRoomId, msg);
+        ChatMessage savedMessage = messageRepository.save(chatMessage);
+        return savedMessage.getSendTime();
     }
 }
