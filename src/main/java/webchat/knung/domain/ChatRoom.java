@@ -7,10 +7,11 @@ import jakarta.persistence.*;
 public class ChatRoom {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "chat_id", unique = true, nullable = false)
-    long id;
-    @Column(name = "name", nullable = false)
-    String name;
-
+    @Column(name = "chatRoom_id", unique = true, nullable = false)
+    private Long chatRoomId;
+    @Column(name = "chat_name", nullable = false)
+    private String chatName;
+    @Column(name = "chatRoomImg")
+    private String chatRoomImg;
 
 }
