@@ -11,14 +11,27 @@ public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "msg_id", unique = true, nullable = false)
-    long msgId;
+    private Long msgId;
     @Column(name = "sender_id", nullable = false)
-    long senderId;
+    private Long senderId;
     @Column(name = "receiver_id", nullable = false)
-    long receiverId;
+    private Long receiverId;
     @CreationTimestamp
     @Column(name = "send_time", nullable = false)
-    LocalDateTime sendTime;
+    private LocalDateTime sendTime;
     @Column(name = "content", nullable = false)
-    String content;
+    private String content;
+
+    public ChatMessage() {
+    }
+
+    public ChatMessage(Long senderId, Long receiverId, String content) {
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.content = content;
+    }
+
+    public LocalDateTime getSendTime() {
+        return sendTime;
+    }
 }
