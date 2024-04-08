@@ -6,7 +6,7 @@
     <style>
         * {
             box-sizing: border-box;
-            font-family: "Noto Sans CJK KR";
+            font-family: "Noto Sans CJK KR", serif;
             font-style: normal;
         }
 
@@ -22,42 +22,62 @@
             margin: 20px auto;
             background: #88f87b;
             border-radius: 10px;
-            box-shadow:  0 0 10px rgba(0,0,0,0.1);
-            padding:  20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             text-align: center;
         }
 
-        .img_profile{
+        .img_profile {
+            content: url(/static/images/default_profile_image.png);
             width: 500px;
             height: 500px;
-            border-radius: 5% ;
+            border-radius: 5%;
             margin-bottom: 5px;
             object-fit: cover;
         }
 
         .name {
-            font-size : 25px;
+            font-size: 25px;
             color: #333333;
             letter-spacing: 3px;
             margin-bottom: 5px;
         }
 
-        .msg{
+        .msg {
             font-size: 18px;
             margin: 6px;
-            color : #797979;
+            color: #797979;
         }
 
-        .back_btn{
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            border-radius: 100px;
-            top: 100px;
+        .back_btn {
+            background-image: url(/static/images/arrow.png);
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: cover;
+            background-color: transparent;
+            width: 15px;
+            height: 15px;
+            rotate: 90deg;
             border: none;
         }
 
-        .change_name{
+        .back_btn_container:hover, .back_btn_container,
+        .back_btn_container:hover, .back_btn {
+            cursor: pointer;
+            opacity: 0.9;
+            transition: left 0.3s ease; /* left 속성에 대한 변화를 0.3초 동안 ease 함수를 사용하여 적용 */
+        }
+
+        .back_btn_container {
+            position: absolute;
+            border-radius: 35px;
+            padding: 10px;
+            margin: 10px;
+            opacity: 0.6;
+            background-color: white;
+        }
+
+        .change_name {
             border: 1cm;
             border-radius: 10px;
             background: none;
@@ -68,12 +88,16 @@
     </style>
 </head>
 <body>
-    <div class="profile">
-        <button class="back_btn" onclick="location.href='list_profile test.html'">←</button>
-        <img class="img_profile" src="https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/704/a93592f555c656b1182593a7ec5d997b_res.jpeg" alt="ㅇㅎ">
-        <h1 class="name" id="name"> 이름dsfasdfdsafasdfsadf </h1>
-        <p class="msg" id="msg"> 상태메세지 작성 </p>
-        <button class="change_name" onclick="location.href='chg_profile.html'"> &nbsp;✏️<br>수정️</button>
+<div class="profile">
+    <div class="profile_image_container">
+        <div class="back_btn_container">
+            <button class="back_btn" onclick="location.href='list_profile test.html'"></button>
+        </div>
+        <img class="img_profile" alt="프로필 이미지" src="">
     </div>
+    <h1 class="name" id="name"> 이름dsfasdfdsafasdfsadf </h1>
+    <p class="msg" id="msg"> 상태메세지 작성 </p>
+    <button class="change_name" onclick="location.href='chg_profile.html'"> &nbsp;✏️<br>수정️</button>
+</div>
 </body>
 </html>
