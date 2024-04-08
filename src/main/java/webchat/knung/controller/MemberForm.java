@@ -1,27 +1,39 @@
 package webchat.knung.controller;
 
 public class MemberForm {
-    long id;
-    String mid;
-    String password;
-    String email;
-    String qna;
-    String name;
+    private Long memberId;
+    private String loginId;
+    private String password;
+    private String email;
+    private String qna;
+    private String name;
 
-    public long getId() {
-        return id;
+    public MemberForm() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public MemberForm(Long memberId, String loginId, String password, String email, String qna, String name) {
+        this.memberId = memberId;
+        this.loginId = loginId;
+        this.password = password;
+        this.email = email;
+        this.qna = qna;
+        this.name = name;
     }
 
-    public String getMid() {
-        return mid;
+    public Long getMemberId() {
+        return memberId;
     }
 
-    public void setMid(String mid) {
-        this.mid = mid;
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 
     public String getPassword() {

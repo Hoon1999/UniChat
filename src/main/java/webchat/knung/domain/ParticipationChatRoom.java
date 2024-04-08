@@ -10,21 +10,22 @@ import java.time.LocalDateTime;
 @Table(name = "participationChatRoom")
 public class ParticipationChatRoom {
     @Id
-    @Column(name = "id", unique = true, nullable = false)
-    long id;
     @Column(name = "chat_id", unique = true, nullable = false)
-    long chatId;
+    private Long chatId;
+    @Column(name="member_id")
+    private Long memberId;
+    @Column(name = "chatRoom_id")
+    private Long chatRoomId;
     @Column(name = "chat_seq", nullable = false)
-    long chatSeq;
-    @CreationTimestamp
+    private Long chatSeq;
     @UpdateTimestamp
     @Column(name = "last_date", nullable = false)
-    LocalDateTime lastDate;
+    private LocalDateTime lastDate;
 
     @ManyToOne
-    @JoinColumn(name = "chat_id")
+    @JoinColumn
     ChatRoom chatRoom;
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn
     Member member;
 }

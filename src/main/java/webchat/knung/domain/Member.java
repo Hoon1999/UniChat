@@ -7,33 +7,44 @@ import jakarta.persistence.*;
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", unique = true, nullable = false)
-    long id;
-    @Column(name = "mid", unique = true, nullable = true)
-    String mid;
-    @Column(name = "pw", nullable = true)
-    String password;
-    @Column(name = "email", unique = true, nullable = true)
-    String email;
-    @Column(name = "qna", nullable = true)
-    String qna;
-    @Column(name = "name", nullable = true)
-    String name;
+    @Column(name = "member_id", unique = true, nullable = false)
+    private Long memberId;
+    @Column(name = "login_id", unique = true, nullable = false)
+    private String loginId;
+    @Column(name = "password", nullable = false)
+    private String password;
+    @Column(name = "email", unique = true, nullable = false)
+    private String email;
+    @Column(name = "qna", nullable = false)
+    private String qna;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    public long getId() {
-        return id;
+    public Member() {
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public Member(String loginId, String password, String email, String qna, String name) {
+        this.loginId = loginId;
+        this.password = password;
+        this.email = email;
+        this.qna = qna;
+        this.name = name;
     }
 
-    public String getMid() {
-        return mid;
+    public Long getMemberId() {
+        return memberId;
     }
 
-    public void setMid(String mid) {
-        this.mid = mid;
+    public void setMemberId(Long memberId) {
+        this.memberId = memberId;
+    }
+
+    public String getLoginId() {
+        return loginId;
+    }
+
+    public void setLoginId(String loginId) {
+        this.loginId = loginId;
     }
 
     public String getPassword() {
