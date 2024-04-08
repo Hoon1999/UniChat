@@ -1,7 +1,11 @@
 package webchat.knung.dto;
 
-public class ChatRoomDto {
-    long chat_id;
-    String chat_name;
-    String img_link;
+import java.time.LocalDateTime;
+
+public interface ChatRoomDto {
+    Long getChatRoom_id();
+    String getChat_name();
+    Long getChat_seq();
+    String getImg_link();
+    LocalDateTime getLastDate();
 }
