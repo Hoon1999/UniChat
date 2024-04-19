@@ -111,15 +111,15 @@
             <section>로그인</section>
         </section>
         <br><br>
-        <form action="login.jsp" method="post" class="user-info">
-            <input type="text" id="Id" name="Id" placeholder="* 아이디" /><br><br>
+        <form action="athentication" method="post" class="user-info">
+            <input type="text" id="Id" name="loginId" placeholder="* 아이디" /><br><br>
             <input type="password" id="password" name="password" placeholder="* 비밀번호"/><br><br>
 
             <button class="login1" id="login" type="submit">로그인</button>
             <div class="button-group">
-                <button class="But_check" onclick="location.href='join.html'"  type="submit">회원가입</button>
-                <button class="But_check" id="Find_Username" type="submit">아이디 찾기</button>
-                <button class="But_check" type="Find_Password" >비밀번호 찾기</button>
+                <button class="But_check" onclick="location.href='register'"  type="button">회원가입</button>
+                <button class="But_check" id="Find_Username" onclick="location.href='findId'" type="button">아이디 찾기</button>
+                <button class="But_check" onclick="location.href='findPw'" type="button">비밀번호 찾기</button>
             </div>
         </form>
     </section>
