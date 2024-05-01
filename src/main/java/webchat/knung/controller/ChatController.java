@@ -60,4 +60,11 @@ public class ChatController {
         return chatService.loadMessage(chatRoomId, lastTime);
     }
 
+    // 클라이언트에서 채팅방에 접속
+    @GetMapping(value = "/chattingRoom")
+    public String chatGet() {
+        // 접속하려는 채팅방 정보를 받아서 특정 동작을 수행하도록 하는 코드를 추가해야함.
+        // 특정 동작 : 1번방 정보를 받으면, 1번방과 연결되도록 하는 동작.
+        return "chattingRoom";
+    }
 }
