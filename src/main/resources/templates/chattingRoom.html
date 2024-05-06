@@ -105,6 +105,10 @@
     .menu-button:hover {
         filter: brightness(0.8);
     }
+    textarea {
+        width: 100%;
+        resize: none;
+    }
   </style>
 </head>
 <body>
@@ -167,13 +171,27 @@
       <div class="menu-button" id="profile-button">프로필</div>
       <div class="menu-button" onclick="openLoginPage()">채팅</div>
     </div>
+
+    <section>
+      <!--채팅 입력창-->
+      <textarea></textarea>
+
+    </section>
   </div>
 </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="/js/chatting.js"></script>
+
 <script>
+  window.onload = function() {
+      connectStomp();
+  }
   function openLoginPage() {
       window.location.href = "login.html";
   }
+
 </script>
 </body>
 </html>
