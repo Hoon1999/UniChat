@@ -173,9 +173,10 @@
     </div>
 
     <section>
-      <!--채팅 입력창-->
-      <textarea></textarea>
-
+      <!--채팅 입력창
+      <input type="file"   id="attachedFile">-->
+      <input type="button" id="sendAttachedFileButton" value="첨부파일 전송">
+      <textarea id="chatWindow"></textarea>
     </section>
   </div>
 </div>
@@ -187,7 +188,14 @@
 <script>
   window.onload = function() {
       connectStomp();
+      document.getElementById("chatWindow").onkeypress = function (e) {
+        if(e.keyCode == 13) {
+          console.log("엔터");
+          socket.send("/chatting/room/1", {}, "엔터입력함.");
+        }
+      }
   }
+
   function openLoginPage() {
       window.location.href = "login.html";
   }
