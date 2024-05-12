@@ -12,3 +12,10 @@ function connectStomp() {
                            socket.send("/chatting/room/1", {}, "접속 테스트용 메세지입니다.");
                    })
 }
+
+function 함수() {
+    첨부파일을 가져온다.
+    가져온 첨부파일을 Base64로 인코딩한다.
+    {isfile:true, data:인코딩된파일} 을 stringify 한다.
+    stringify 된 json을 socket.send로 서버에 전달한다.
+}
