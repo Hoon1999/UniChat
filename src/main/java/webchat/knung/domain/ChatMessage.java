@@ -6,7 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "chatMessage")
+@Table(name = "message")
 public class ChatMessage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +31,13 @@ public class ChatMessage {
         this.content = content;
     }
 
+    public Long getMsgId() {
+        return msgId;
+    }
+
+    public String getContent() {
+        return content;
+    }
     public LocalDateTime getSendTime() {
         return sendTime;
     }

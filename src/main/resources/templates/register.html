@@ -166,11 +166,11 @@
             <section>정보를 입력해주세요</section>
         </section>
         <br><br>
-        <form action="login.html" method="post" class="user-info" onsubmit="return nullData()">
+        <form action="register" method="post" class="user-info" onsubmit="return nullData()">
 
-            <input type="email" id="email" name ="Email" placeholder="* 이메일" /><br><br>
-            <input type="text" id="name" name = "name" placeholder="* 이름" /><br><br>
-            <input type="text" id="Id" name = "Id" onblur="Data()" placeholder="* 아이디" /><br>
+            <input type="email" id="email" name ="email" placeholder="* 이메일" /><br><br>
+            <input type="text" id="name" name ="name" placeholder="* 이름" /><br><br>
+            <input type="text" id="Id" name = "loginId" onblur="Data()" placeholder="* 아이디" /><br>
             <label id="ICheck" style="color: #C55A11; font-size: 10px;"></label><br>
             <input type="password" id="password" name = "password" placeholder="* 비밀번호" /><br><br>
 <!--            <input type="password" id="confirmPassword" onblur="passwordCheck()" placeholder="* 비밀번호 확인" /><br><br>-->
@@ -182,7 +182,7 @@
                 <option value="3">내가 태어난 곳은?</option>
                 <option value="4">좋아하는 캐릭터는?</option>
             </select>
-            <input type="text" id="check_box" placeholder="질문체크" />
+            <input type="text" id="check_box" name="qna" placeholder="질문체크" />
             <p class="notice">아이디 비밀번호 찾을 때 사용하는 답변 메일로 사용됨
          </p>
 

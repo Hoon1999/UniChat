@@ -3,9 +3,9 @@ package webchat.knung.dto;
 import java.time.LocalDateTime;
 
 public interface ChatRoomDto {
-    Long getChatRoom_id();
-    String getChat_name();
+    Long getChat_room_id();
+    String getChat_room_name();
     Long getChat_seq();
-    String getImg_link();
-    LocalDateTime getLastDate();
+    String getChat_room_img();
+    LocalDateTime getLast_date();
 }

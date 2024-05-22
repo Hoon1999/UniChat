@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface SpringDataJpaParticipationChatRoomRepository extends JpaRepository<ParticipationChatRoom, Long>, ParticipationChatRoomRepository {
     @Override
-    @Query(value = "select pcr.chatRoom_id, cr.chat_name, pcr.chat_seq, cr.chatRoomImg, pcr.last_date " +
-            "from participationChatRoom as pcr join chatRoom as cr " +
+    @Query(value = "select pcr.chat_room_id, cr.chat_room_name, pcr.chat_seq, cr.chat_room_img, pcr.last_date " +
+            "from participation_chat_room as pcr natural join chat_room as cr " +
             "where pcr.member_id = :memberId", nativeQuery = true)
     List<ChatRoomDto> findByMemberId(@Param("memberId") Long memberId);
 }
