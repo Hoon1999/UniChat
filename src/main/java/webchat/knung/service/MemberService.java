@@ -74,4 +74,20 @@ public class MemberService {
         }
 
     }
+
+    /**
+     * member Id 로 해당 회원의 이름을 찾습니다.
+     * @param memberId
+     * @return
+     */
+    public String findUserName(Long memberId) {
+        Optional<Member> result = memberRepository.findByMemberId(memberId);
+        if(result.isPresent()) {
+            return result.get().getName();
+        }
+        else {
+            // 해당하는 유저가 존재하지 않음.
+            return "UnKnown";
+        }
+    }
 }

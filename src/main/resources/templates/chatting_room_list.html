@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채팅방 목록</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .inner-box {
+            max-height: 700px;
+            overflow-y: auto;
+            padding: 10px;
+            scroll-behavior: smooth; /* 스크롤을 스무스하게 만듭니다. */
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        * {
+            -webkit-user-select: none; /* Chrome, Safari, Opera */
+            -moz-user-select: none; /* Firefox */
+            -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* 기본값 */
+        }
+
+        .profile {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            border: 1px solid #d3d3d37a;
+            padding: 5px;
+            border-radius: 15px;
+            margin: 5px;
+            position: relative;
+        }
+
+        .profile:hover {
+            cursor: pointer;
+            background: rgba(255, 255, 255, 0.78);
+        }
+
+        .profile-picture {
+            content: url(/static/images/default_profile_image.png);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .profile-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .status {
+            font-size: 16px;
+            color: #888;
+            margin: 5px 0;
+        }
+
+        .message {
+            font-size: 18px;
+            margin: 0;
+        }
+
+        /* 프로필 사이의 선 스타일 */
+        .profile-separator {
+            width: 100%;
+            border-bottom: 1px solid #d3d3d3;
+            margin-bottom: 20px
+        }
+
+        .menu {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .menu-button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .profile-details, .profile-picture{
+            pointer-events: none;
+        }
+        .edit-icon {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+<!--
+<section th:text="'환영합니다.' + ${memberId} + '님'"></section>
+-->
+<br>
+<div class="container">
+    <div class="inner-box">
+        <div class="profile-container">
+            <div class="profile" value="0">
+                <img class="profile-picture" src="" alt="프로필 사진">
+                <div class="profile-details">
+                    <h1 class="name">홍길동</h1>
+                    <p class="status">지금 접속중</p>
+                    <p class="message">안녕하세요!</p>
+                </div>
+                <a href="javascript:void(0);" onclick="editChattingRoom(this);"><img class="edit-icon" src="/static/images/edit_icon.png" alt="편집아이콘"></a>
+            </div>
+
+        </div>
+
+        <div class="menu">
+            <div class="menu-button" onclick="loadChattingRooms()">새로고침</div>
+            <div class="menu-button" onclick="newChattingRoom()">새 채팅방</div>
+        </div>
+    </div>
+</div>
+<form name="hiddenForm">
+    <input type="hidden" id="postRoomId">
+</form>
+<script>
+    window.onload = function() {
+        loadChattingRooms();
+    }
+    function createChattingRoom(roomId, roomName, roomStatus, lastMessage) {
+        let profile = document.createElement('div');
+        profile.setAttribute('class', "profile");
+        profile.setAttribute('value', roomId);
+        profile.onclick = enterChattingRoom;
+
+        let profilePicture = document.createElement('img');
+        profilePicture.setAttribute('class', "profile-picture");
+        profilePicture.setAttribute('src', "/images/default_profile_image.png");
+        profilePicture.setAttribute('alt', "프로필 사진");
+
+        let profileDetails = document.createElement('div');
+        profileDetails.setAttribute('class', "profile-details");
+
+        let a = document.createElement('a');
+        a.setAttribute('href', "javascript:void(0);");
+        a.setAttribute('onclick', "editChattingRoom(this);");
+
+        let editIcon = document.createElement('img');
+        editIcon.setAttribute('class', "edit-icon");
+        editIcon.setAttribute('src', "/images/edit_icon.png");
+        editIcon.setAttribute('alt', "편집 아이콘");
+
+        let name = document.createElement('h1');
+        name.setAttribute('class', "name");
+        name.innerText = roomName; //"채팅방 name";
+
+        let status = document.createElement('p');
+        status.setAttribute('class', "status");
+        status.innerText = roomStatus; //"메시지 time";
+
+        let message = document.createElement('p');
+        message.setAttribute('class', "message");
+        message.innerText = lastMessage; //"메시지 content";
+
+        // 만들어진 채팅방을 삽입
+        let containers = document.getElementsByClassName("profile-container");
+        let container = containers.item(0);
+
+        container.appendChild(profile);
+        profile.appendChild(profilePicture);
+        profile.appendChild(profileDetails);
+        profile.appendChild(a);
+        a.appendChild(editIcon);
+        profileDetails.appendChild(name);
+        profileDetails.appendChild(status);
+        profileDetails.appendChild(message);
+    }
+
+    function loadChattingRooms() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if( this.readyState == 4 && this.status == 200) {
+                // 만들어진 채팅방을 삽입
+                let containers = document.getElementsByClassName("profile-container");
+                let container = containers.item(0);
+                container.innerHTML = ""; // 기존 항목 삭제(초기화)
+
+                let results = JSON.parse(this.responseText).data;
+                //console.log(results[0]);
+
+                for(let i = 0; i < results.length; i++) {
+                    createChattingRoom(results[i].roomId, results[i].name, results[i].last_date, results[i].message_seq);
+                }
+            }
+        };
+        xhttp.open("POST", "chatRoom");
+        xhttp.send();
+    }
+
+    function enterChattingRoom(e) {
+        //console.log(e.target);
+        //console.log(e.target.value);
+        //console.log(e.currentTarget.getAttribute('value'));
+
+        let roomId = e.currentTarget.getAttribute('value');
+        let url = "/chattingRoom/" + roomId;
+        let windowName = "채팅방";
+        let features = "location=no, resizable=yes";
+
+        // 새 윈도우 생성. 이 윈도우가 GET /chattingRoom/{roomId} 를 요청함.
+        // 이거 추후에 POST 방식으로 변경하기(주소창에 채팅방 번호 노출되기 때문)
+        // 주소창 숨기기 옵션은 더 이상 지원하지 않는다.
+        window.open(url, windowName, features);
+
+        //document.getElementById("postRoomId").setAttribute('value', roomId);
+
+        //let hiddenForm = document.hiddenForm;
+        //hiddenForm.action = url;
+        //hiddenForm.method = "post";
+        //hiddenForm.target = windowName;
+        //hiddenForm.submit();
+    }
+    function newChattingRoom() {
+        // js 에서 create chatting room 함수랑
+        // java 에서 create chatting room 함수랑 다름..
+        // js 에서 create chatting room 함수는 채팅방 목록을 만들어주는 함수.
+        // java 에서 create chatting room 함수는 진짜 새 채팅방을 만드는 함수이다.
+        // js 에서 new chatting room 이 java 의 create chatting room 메서드를 호출(?)한다.
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if( this.readyState == 4 && this.status == 200) {
+                loadChattingRooms();
+            }
+        };
+        xhttp.open("POST", "createChattingRoom");
+        xhttp.send();
+    }
+    function editChattingRoom(obj) {
+        // 새 창을 띄우고 채팅방 번호를 넘겨줍니다.
+        let roomId = obj.parentNode.getAttribute('value');
+        let url = "/editChattingRoom/" + roomId;
+        let windowName = "채팅방 정보 수정";
+        let features = "location=no, resizable=yes";
+
+        window.open(url, windowName, features);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>메인입니다.</title>
+</head>
+<body>
+<form action="/chatRoom" method="post">
+    <input type="submit">
+</form>
+<br>
+<a href="javascript:loadDocArray()">ajax</a>
+<br>
+<textarea id="demo"></textarea>
+<script>
+    function loadDocArray() {
+        const xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function() {
+            if( this.readyState == 4 && this.status == 200) {
+                //console.log(this.responseText);
+                let temp = JSON.parse(this.responseText);
+
+                document.getElementById("demo").innerText = this.responseText;
+                console.log(temp.data[0].name);
+                console.log(temp.data[1].name);
+            }
+        };
+        xhttp.open("POST", "chatRoom");
+        xhttp.send();
+    }
+</script>
+</body>
+</html>

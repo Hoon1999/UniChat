@@ -1,4 +1,5 @@
 package webchat.knung.dto;
 
-public interface MessageDto {
+public class MessageDto {
+
 }

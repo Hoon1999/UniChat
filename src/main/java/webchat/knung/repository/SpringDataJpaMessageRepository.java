@@ -12,5 +12,8 @@ public interface SpringDataJpaMessageRepository extends JpaRepository<ChatMessag
     ChatMessage save(ChatMessage chatMessage);
 
     @Override
+    ChatMessage findByMsgId(Long msgId);
+
+    @Override
     List<MessageDto> findByReceiverIdAndSendTimeGreaterThanEqual(Long receiverId, LocalDateTime sendTime);
 }

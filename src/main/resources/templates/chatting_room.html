@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>채팅창</title>
@@ -23,15 +23,16 @@
 
     .inner-box {
         max-height: 700px;
-        overflow-y: auto;
         padding: 10px;
-        scroll-behavior: smooth;
     }
 
     .chat-container {
         display: flex;
         flex-direction: column;
         padding: 20px;
+        max-height: 60vh;
+        overflow-y: auto;
+        scroll-behavior: smooth;
     }
 
     .chat-message {
@@ -160,6 +161,60 @@
           <span class="message-time">12:34 PM</span>
         </div>
       </div>
+      <div class="chat-message yours">
+        <div class="message-box">
+          안녕, 잘 지냈어?
+          <span class="message-time">12:34 PM</span>
+        </div>
+      </div>
+      <div class="chat-message yours">
+        <div class="message-box">
+          안녕, 잘 지냈어?
+          <span class="message-time">12:34 PM</span>
+        </div>
+      </div>
+      <div class="chat-message yours">
+        <div class="message-box">
+          안녕, 잘 지냈어?
+          <span class="message-time">12:34 PM</span>
+        </div>
+      </div>
+      <div class="chat-message yours">
+        <div class="message-box">
+          안녕, 잘 지냈어?
+          <span class="message-time">12:34 PM</span>
+        </div>
+      </div>
+      <div class="chat-message yours">
+        <div class="message-box">
+          안녕, 잘 지냈어?
+          <span class="message-time">12:34 PM</span>
+        </div>
+      </div>
+      <div class="chat-message yours">
+        <div class="message-box">
+          안녕, 잘 지냈어?
+          <span class="message-time">12:34 PM</span>
+        </div>
+      </div>
+      <div class="chat-message yours">
+        <div class="message-box">
+          안녕, 잘 지냈어?
+          <span class="message-time">12:34 PM</span>
+        </div>
+      </div>
+      <div class="chat-message yours">
+        <div class="message-box">
+          안녕, 잘 지냈어?
+          <span class="message-time">12:34 PM</span>
+        </div>
+      </div>
+      <div class="chat-message yours">
+        <div class="message-box">
+          안녕, 잘 지냈어?
+          <span class="message-time">12:34 PM</span>
+        </div>
+      </div>
 
       <!-- 다른 메시지들을 여기에 추가 -->
     </div>
@@ -178,6 +233,13 @@
       <input type="button" id="sendAttachedFileButton" value="첨부파일 전송">
       <textarea id="chatWindow"></textarea>
     </section>
+    <!--
+       controller 에서 값을 전달할 때 html 로 보내는 방법은 아는데,
+       그걸 js 에서 받는 법을 모름..
+       그래서 임시방편으로 html 태그에 저장하고 이 값을 js 에서 가져온다.
+    -->
+    <p id="roomId" style="display:none" th:text="${roomId}"></p>
+    <p id="memberId" style="display:none" th:text="${memberId}"></p>
   </div>
 </div>
 
@@ -187,13 +249,51 @@
 
 <script>
   window.onload = function() {
-      connectStomp();
+      let roomId = document.getElementById("roomId").innerText;
+
+      connectStomp(roomId); // 채팅 연결
+
+      // 채팅창에 메세지 입력 후 엔터 입력시 발생할 동작
       document.getElementById("chatWindow").onkeypress = function (e) {
-        if(e.keyCode == 13) {
-          console.log("엔터");
-          socket.send("/chatting/room/1", {}, "엔터입력함.");
+        if(e.keyCode == 13 && !e.shiftKey) {
+          e.preventDefault(); // 엔터 입력하면 생기는 줄바꿈 무력화
+          console.log("user input: ", e.target.value);
+
+          let memberId = document.getElementById("memberId").innerText;
+          let msg = { sender : memberId, content : e.target.value };
+          socket.send("/chatting/room/" + roomId, {}, JSON.stringify(msg));
+          e.target.value = ""; // textarea 비워주기
         }
       }
+  }
+
+  // 말풍선 만드는 함수
+  function createSpeechBalloon(sender, name, msg, time) {
+      console.log("말풍선 만들기 시작");
+      let balloon = document.createElement('div');
+      if( document.getElementById("memberId").innerText == sender )
+        balloon.setAttribute('class', "chat-message yours");
+      else {
+        balloon.setAttribute('class', "chat-message theirs");
+
+        let img = document.createElement('img');
+        img.setAttribute('class', "profile-picture");
+        img.setAttribute('src', "a.jpg");
+        img.setAttribute('alt', "name");
+        balloon.appendChild(img);
+      }
+
+      let msg_box = document.createElement('div');
+      msg_box.setAttribute('class', "message-box");
+      msg_box.innerText = msg;
+
+      let msg_time = document.createElement('span');
+      msg_time.setAttribute('class', "message-time");
+      msg_time.innerText = time;
+
+      document.getElementsByClassName("chat-container").item(0).appendChild(balloon);
+      balloon.appendChild(msg_box);
+      msg_box.appendChild(msg_time);
   }
 
   function openLoginPage() {
