@@ -155,7 +155,7 @@
     window.onload = function() {
         loadChattingRooms();
     }
-    function createChattingRoom(roomId, roomName, roomStatus, lastMessage) {
+    function createChattingRoom(roomId, roomName, roomStatus, lastMessage, img_link) {
         let profile = document.createElement('div');
         profile.setAttribute('class', "profile");
         profile.setAttribute('value', roomId);
@@ -163,7 +163,7 @@
 
         let profilePicture = document.createElement('img');
         profilePicture.setAttribute('class', "profile-picture");
-        profilePicture.setAttribute('src', "/images/default_profile_image.png");
+        profilePicture.setAttribute('src', "/images/" + img_link);
         profilePicture.setAttribute('alt', "프로필 사진");
 
         let profileDetails = document.createElement('div');
@@ -214,10 +214,10 @@
                 container.innerHTML = ""; // 기존 항목 삭제(초기화)
 
                 let results = JSON.parse(this.responseText).data;
-                //console.log(results[0]);
+                console.log(results[0]);
 
                 for(let i = 0; i < results.length; i++) {
-                    createChattingRoom(results[i].roomId, results[i].name, results[i].last_date, results[i].message_seq);
+                    createChattingRoom(results[i].roomId, results[i].name, results[i].last_date, results[i].message_seq, results[i].img_link);
                 }
             }
         };
