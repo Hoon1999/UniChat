@@ -90,4 +90,7 @@ public class MemberService {
             return "UnKnown";
         }
     }
+    public Optional<Member> findByLoginId(String loginId) {
+        return memberRepository.findByLoginId(loginId);
+    }
 }

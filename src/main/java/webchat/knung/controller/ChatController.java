@@ -12,17 +12,21 @@ import webchat.knung.domain.Member;
 import webchat.knung.dto.ChatRoomDto;
 import webchat.knung.dto.MessageDto;
 import webchat.knung.service.ChatService;
+import webchat.knung.service.MemberService;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ChatController {
     ChatService chatService;
+    MemberService memberService;
 
-    public ChatController(ChatService chatService) {
+    public ChatController(ChatService chatService, MemberService memberService) {
         this.chatService = chatService;
+        this.memberService = memberService;
     }
 
     @GetMapping(value = "/chatRoom")
@@ -123,5 +127,29 @@ public class ChatController {
         chatService.updateChattingRoom(form);
         String str = "<script> window.close() </script>";
         return str;
+    }
+
+    // 채팅방에 친구 초대
+    @GetMapping("/inviteUser/{roomId}")
+    public String inviteUserForm(@PathVariable("roomId") String roomId, Model model) {
+        model.addAttribute("roomId", roomId);
+        return "invite_user_form";
+    }
+    @PostMapping("/inviteUser")
+    @ResponseBody
+    public String inviteUser(@RequestParam("roomId") String roomId,
+                             @RequestParam("loginId") String loginId) {
+        if(loginId.compareTo("") == 0) {
+            return "로그인 아이디를 입력해주세요";
+        }
+        Optional<Member> result = memberService.findByLoginId(loginId);
+
+        if(result.isPresent()) {
+            chatService.addUserInChattingRoom(result.get().getMemberId(), Long.parseLong(roomId));
+            return "초대가 완료되었습니다.";
+        }
+        else {
+            return "존재하지 않는 아이디 입니다.";
+        }
     }
 }

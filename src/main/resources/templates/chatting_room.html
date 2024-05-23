@@ -224,7 +224,7 @@
 
     <div class="menu">
       <div class="menu-button" id="profile-button">프로필</div>
-      <div class="menu-button" onclick="openLoginPage()">채팅</div>
+      <div class="menu-button" onclick="inviteUser()">초대</div>
     </div>
 
     <section>
@@ -269,7 +269,7 @@
 
   // 말풍선 만드는 함수
   function createSpeechBalloon(sender, name, msg, time) {
-      console.log("말풍선 만들기 시작");
+      //console.log("말풍선 만들기 시작");
       let balloon = document.createElement('div');
       if( document.getElementById("memberId").innerText == sender )
         balloon.setAttribute('class', "chat-message yours");
@@ -295,7 +295,14 @@
       balloon.appendChild(msg_box);
       msg_box.appendChild(msg_time);
   }
+  function inviteUser() {
+      let roomId = document.getElementById("roomId").innerText;
+      let url = "/inviteUser/" + roomId;
+      let windowName = "유저 초대";
+      let features = "location=no, resizable=yes";
 
+      window.open(url, windowName, features);
+  }
   function openLoginPage() {
       window.location.href = "login.html";
   }
