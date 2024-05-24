@@ -112,13 +112,21 @@
         .profile-details, .profile-picture{
             pointer-events: none;
         }
-        .edit-icon {
+        .close-icon {
             position: absolute;
             top: 8px;
             right: 8px;
             width: 20px;
             height: 20px;
             margin-right: 20px;
+        }
+        .edit-icon {
+            position: absolute;
+            top: 8px;
+            right: 28px;
+            width: 20px;
+            height: 20px;
+            margin-right: 40px;
         }
     </style>
 </head>
@@ -138,6 +146,7 @@
                     <p class="message">안녕하세요!</p>
                 </div>
                 <a href="javascript:void(0);" onclick="editChattingRoom(this);"><img class="edit-icon" src="/static/images/edit_icon.png" alt="편집아이콘"></a>
+                <a href="javascript:void(0);" onclick="editChattingRoom(this);"><img class="close-icon" src="/static/images/close-icon.jpeg" alt="편집아이콘"></a>
             </div>
 
         </div>
@@ -180,6 +189,15 @@
         editIcon.setAttribute('src', "/images/edit_icon.png");
         editIcon.setAttribute('alt', "편집 아이콘");
 
+        let a2 = document.createElement('a');
+        a2.setAttribute('href', "javascript:void(0);");
+        a2.setAttribute('onclick', "removeChattingRoom(this);");
+
+        let closeIcon = document.createElement('img');
+        closeIcon.setAttribute('class', "close-icon");
+        closeIcon.setAttribute('src', "/images/close_icon.png");
+        closeIcon.setAttribute('alt', "삭제 아이콘");
+
         let name = document.createElement('h1');
         name.setAttribute('class', "name");
         name.innerText = roomName; //"채팅방 name";
@@ -201,6 +219,8 @@
         profile.appendChild(profileDetails);
         profile.appendChild(a);
         a.appendChild(editIcon);
+        profile.appendChild(a2);
+        a2.appendChild(closeIcon);
         profileDetails.appendChild(name);
         profileDetails.appendChild(status);
         profileDetails.appendChild(message);
@@ -274,6 +294,9 @@
         let features = "location=no, resizable=yes";
 
         window.open(url, windowName, features);
+    }
+    function removeChattingRoom(obj) {
+        alert("hello");
     }
 </script>
 </body>
