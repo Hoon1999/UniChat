@@ -163,7 +163,9 @@
 
         let profilePicture = document.createElement('img');
         profilePicture.setAttribute('class', "profile-picture");
-        profilePicture.setAttribute('src', "/images/" + img_link);
+        profilePicture.setAttribute('src', "/uploaded_images/" + img_link);
+        if(img_link == null)
+            profilePicture.setAttribute('src', "/images/default_profile_image.png");
         profilePicture.setAttribute('alt', "프로필 사진");
 
         let profileDetails = document.createElement('div');
