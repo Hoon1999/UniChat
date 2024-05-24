@@ -248,64 +248,66 @@
 <script src="/js/chatting.js"></script>
 
 <script>
+  window.resizeTo(500, 600); // load 되기 전에 사이즈 조절 우선하기
   window.onload = function() {
-      let roomId = document.getElementById("roomId").innerText;
+  let roomId = document.getElementById("roomId").innerText;
 
-      connectStomp(roomId); // 채팅 연결
+  connectStomp(roomId); // 채팅 연결
 
-      // 채팅창에 메세지 입력 후 엔터 입력시 발생할 동작
-      document.getElementById("chatWindow").onkeypress = function (e) {
-        if(e.keyCode == 13 && !e.shiftKey) {
-          e.preventDefault(); // 엔터 입력하면 생기는 줄바꿈 무력화
-          console.log("user input: ", e.target.value);
+  // 채팅창에 메세지 입력 후 엔터 입력시 발생할 동작
+  document.getElementById("chatWindow").onkeypress = function (e) {
+    if(e.keyCode == 13 && !e.shiftKey) {
+      e.preventDefault(); // 엔터 입력하면 생기는 줄바꿈 무력화
+      console.log("user input: ", e.target.value);
 
-          let memberId = document.getElementById("memberId").innerText;
-          let msg = { sender : memberId, content : e.target.value };
-          socket.send("/chatting/room/" + roomId, {}, JSON.stringify(msg));
-          e.target.value = ""; // textarea 비워주기
-        }
-      }
+      let memberId = document.getElementById("memberId").innerText;
+      let msg = { sender : memberId, content : e.target.value };
+      socket.send("/chatting/room/" + roomId, {}, JSON.stringify(msg));
+      e.target.value = ""; // textarea 비워주기
+    }
+  }
+}
+
+// 말풍선 만드는 함수
+function createSpeechBalloon(sender, name, msg, time) {
+  //console.log("말풍선 만들기 시작");
+  let balloon = document.createElement('div');
+  if( document.getElementById("memberId").innerText == sender )
+    balloon.setAttribute('class', "chat-message yours");
+  else {
+    balloon.setAttribute('class', "chat-message theirs");
+
+    let img = document.createElement('img');
+    img.setAttribute('class', "profile-picture");
+    img.setAttribute('src', "a.jpg");
+    img.setAttribute('alt', "name");
+    balloon.appendChild(img);
   }
 
-  // 말풍선 만드는 함수
-  function createSpeechBalloon(sender, name, msg, time) {
-      //console.log("말풍선 만들기 시작");
-      let balloon = document.createElement('div');
-      if( document.getElementById("memberId").innerText == sender )
-        balloon.setAttribute('class', "chat-message yours");
-      else {
-        balloon.setAttribute('class', "chat-message theirs");
+  let msg_box = document.createElement('div');
+  msg_box.setAttribute('class', "message-box");
+  msg_box.innerText = msg;
 
-        let img = document.createElement('img');
-        img.setAttribute('class', "profile-picture");
-        img.setAttribute('src', "a.jpg");
-        img.setAttribute('alt', "name");
-        balloon.appendChild(img);
-      }
+  let msg_time = document.createElement('span');
+  msg_time.setAttribute('class', "message-time");
+  msg_time.innerText = time;
 
-      let msg_box = document.createElement('div');
-      msg_box.setAttribute('class', "message-box");
-      msg_box.innerText = msg;
+  document.getElementsByClassName("chat-container").item(0).appendChild(balloon);
+  balloon.appendChild(msg_box);
+  msg_box.appendChild(msg_time);
+}
+function inviteUser() {
+  let roomId = document.getElementById("roomId").innerText;
+  let url = "/inviteUser/" + roomId;
+  let windowName = "유저 초대";
+  let features = "location=no, resizable=yes";
 
-      let msg_time = document.createElement('span');
-      msg_time.setAttribute('class', "message-time");
-      msg_time.innerText = time;
+  window.open(url, windowName, features);
+}
 
-      document.getElementsByClassName("chat-container").item(0).appendChild(balloon);
-      balloon.appendChild(msg_box);
-      msg_box.appendChild(msg_time);
-  }
-  function inviteUser() {
-      let roomId = document.getElementById("roomId").innerText;
-      let url = "/inviteUser/" + roomId;
-      let windowName = "유저 초대";
-      let features = "location=no, resizable=yes";
-
-      window.open(url, windowName, features);
-  }
-  function openLoginPage() {
-      window.location.href = "login.html";
-  }
+function openLoginPage() {
+  window.location.href = "login.html";
+}
 
 </script>
 </body>
