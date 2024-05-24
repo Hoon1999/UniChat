@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>유저 초대</title>
 </head>
 <body>
-<form action="" method="post">
+<form action="/inviteUser" method="post" style="display: inline-block;">
     <input name="roomId" type="hidden" th:value="${roomId}">
     <input name="loginId" type="text" placeholder="초대할 유저의 로그인 ID를 입력해주세요"><br>
-    <div id="result"></div>
-    <input type="button" onclick="formSubmit()">
+    <div id="result"></div><br>
+    <input type="submit" value="초대">
+    <input type="button" onclick="window.close()" value="닫기">
 </form>
 <script>
+    window.resizeTo(document.forms[0].offsetWidth, document.forms[0].offsetHeight);
     function formSubmit() {
+    // 힝 안되네..
         const xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function() {
             if( this.readyState == 4 && this.status == 200) {

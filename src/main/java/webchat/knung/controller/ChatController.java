@@ -3,7 +3,6 @@ package webchat.knung.controller;
 import jakarta.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +10,7 @@ import webchat.knung.domain.ChatRoom;
 import webchat.knung.domain.Member;
 import webchat.knung.dto.ChatRoomDto;
 import webchat.knung.dto.MessageDto;
+import webchat.knung.dto.inviteDTO;
 import webchat.knung.service.ChatService;
 import webchat.knung.service.MemberService;
 
@@ -121,8 +121,8 @@ public class ChatController {
     @PostMapping(value = "/editChattingRoom")
     @ResponseBody
     public String editChattingRoom(@ModelAttribute ChattingRoomEditForm form) throws IOException {
-        System.out.println("FormRoomID : " + form.getRoomId());
-        System.out.println("FormRoomName : " + form.getRoomName());
+//        System.out.println("FormRoomID : " + form.getRoomId());
+//        System.out.println("FormRoomName : " + form.getRoomName());
 //        System.out.println("file : " + form.getRoomImage());
         chatService.updateChattingRoom(form);
         String str = "<script> window.close() </script>";
@@ -137,19 +137,21 @@ public class ChatController {
     }
     @PostMapping("/inviteUser")
     @ResponseBody
-    public String inviteUser(@RequestParam("roomId") String roomId,
-                             @RequestParam("loginId") String loginId) {
+    public String inviteUser(@ModelAttribute inviteDTO dto) {
+        String roomId   = dto.getRoomId();
+        String loginId = dto.getLoginId();
+
         if(loginId.compareTo("") == 0) {
-            return "로그인 아이디를 입력해주세요";
+            return "<script>alert('로그인 아이디를 입력해주세요'); window.close();</script>";
         }
         Optional<Member> result = memberService.findByLoginId(loginId);
 
         if(result.isPresent()) {
             chatService.addUserInChattingRoom(result.get().getMemberId(), Long.parseLong(roomId));
-            return "초대가 완료되었습니다.";
+            return "<script>alert('초대가 완료되었습니다.'); window.close();</script>";
         }
         else {
-            return "존재하지 않는 아이디 입니다.";
+            return "<script>alert('존재하지 않는 아이디 입니다.'); window.close();</script>";
         }
     }
 }
