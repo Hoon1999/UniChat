@@ -93,8 +93,8 @@ public class ChatService {
             MultipartFile file = form.getRoomImage();
             String originalFilename = file.getOriginalFilename();
             String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
-            //String savePath = "C:/knung_images/" + storedFileName; // windows 용 경로. 해당 폴더가 있어야 한다. 없으면 안만들어주나봄.
-            String savePath = "/Users/kjhoon44/Desktop/knung_images/" + storedFileName;
+            String savePath = "C:/Users/2021102/Desktop/knung_images/" + storedFileName; // windows 용 경로. 해당 폴더가 있어야 한다. 없으면 안만들어주나봄.
+//            String savePath = "/Users/kjhoon44/Desktop/knung_images/" + storedFileName; // for mac
             file.transferTo(new File(savePath));
 
             result.setChatRoomImg(storedFileName);
