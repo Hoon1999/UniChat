@@ -59,7 +59,7 @@ public class ChatService {
         // 새 채팅방을 만듬.
         ChatRoom obj = new ChatRoom();
         obj.setChatName("new_room");
-        obj.setChatRoomImg("/images/default_profile_image.png");
+        //obj.setChatRoomImg("/images/default_profile_image.png");
         return chatRoomRepository.save(obj);
     }
     public void updateChattingRoom(ChattingRoomEditForm form) throws IOException {

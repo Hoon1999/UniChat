@@ -112,13 +112,21 @@
         .profile-details, .profile-picture{
             pointer-events: none;
         }
-        .edit-icon {
+        .close-icon {
             position: absolute;
             top: 8px;
             right: 8px;
             width: 20px;
             height: 20px;
             margin-right: 20px;
+        }
+        .edit-icon {
+            position: absolute;
+            top: 8px;
+            right: 28px;
+            width: 20px;
+            height: 20px;
+            margin-right: 40px;
         }
     </style>
 </head>
@@ -130,15 +138,6 @@
 <div class="container">
     <div class="inner-box">
         <div class="profile-container">
-            <div class="profile" value="0">
-                <img class="profile-picture" src="" alt="프로필 사진">
-                <div class="profile-details">
-                    <h1 class="name">홍길동</h1>
-                    <p class="status">지금 접속중</p>
-                    <p class="message">안녕하세요!</p>
-                </div>
-                <a href="javascript:void(0);" onclick="editChattingRoom(this);"><img class="edit-icon" src="/static/images/edit_icon.png" alt="편집아이콘"></a>
-            </div>
 
         </div>
 
@@ -163,7 +162,9 @@
 
         let profilePicture = document.createElement('img');
         profilePicture.setAttribute('class', "profile-picture");
-        profilePicture.setAttribute('src', "/images/" + img_link);
+        profilePicture.setAttribute('src', "/uploaded_images/" + img_link);
+        if(img_link == null)
+            profilePicture.setAttribute('src', "/images/default_profile_image.png");
         profilePicture.setAttribute('alt', "프로필 사진");
 
         let profileDetails = document.createElement('div');
@@ -177,6 +178,15 @@
         editIcon.setAttribute('class', "edit-icon");
         editIcon.setAttribute('src', "/images/edit_icon.png");
         editIcon.setAttribute('alt', "편집 아이콘");
+
+        let a2 = document.createElement('a');
+        a2.setAttribute('href', "javascript:void(0);");
+        a2.setAttribute('onclick', "removeChattingRoom(this);");
+
+        let closeIcon = document.createElement('img');
+        closeIcon.setAttribute('class', "close-icon");
+        closeIcon.setAttribute('src', "/images/close_icon.png");
+        closeIcon.setAttribute('alt', "삭제 아이콘");
 
         let name = document.createElement('h1');
         name.setAttribute('class', "name");
@@ -199,6 +209,8 @@
         profile.appendChild(profileDetails);
         profile.appendChild(a);
         a.appendChild(editIcon);
+        profile.appendChild(a2);
+        a2.appendChild(closeIcon);
         profileDetails.appendChild(name);
         profileDetails.appendChild(status);
         profileDetails.appendChild(message);
@@ -272,6 +284,9 @@
         let features = "location=no, resizable=yes";
 
         window.open(url, windowName, features);
+    }
+    function removeChattingRoom(obj) {
+        alert("hello");
     }
 </script>
 </body>
