@@ -171,6 +171,9 @@
 // 말풍선 만드는 함수
 function createSpeechBalloon(sender, name, msg, time) {
   //console.log("말풍선 만들기 시작");
+  let nameDiv = document.createElement('div');
+  nameDiv.innerText = name;
+
   let balloon = document.createElement('div');
   if( document.getElementById("memberId").innerText == sender )
     balloon.setAttribute('class', "chat-message yours");
@@ -192,6 +195,7 @@ function createSpeechBalloon(sender, name, msg, time) {
   msg_time.setAttribute('class', "message-time");
   msg_time.innerText = time;
 
+  document.getElementsByClassName("chat-container").item(0).appendChild(nameDiv);
   document.getElementsByClassName("chat-container").item(0).appendChild(balloon);
   balloon.appendChild(msg_box);
   msg_box.appendChild(msg_time);
