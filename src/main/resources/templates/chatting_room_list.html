@@ -194,7 +194,7 @@
 
         let status = document.createElement('p');
         status.setAttribute('class', "status");
-        status.innerText = roomStatus; //"메시지 time";
+        status.innerText = roomStatus.substring(11, 16); //"메시지 time";
 
         let message = document.createElement('p');
         message.setAttribute('class', "message");
