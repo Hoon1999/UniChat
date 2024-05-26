@@ -193,7 +193,10 @@ function createSpeechBalloon(sender, name, msg, time) {
 
   let msg_time = document.createElement('span');
   msg_time.setAttribute('class', "message-time");
-  msg_time.innerText = time;
+  //시, 분 각각 2자리 수로
+  //let str_time = time.toString();
+  let sliced_time = time.substring(11, 15)
+  msg_time.innerText = sliced_time;
 
   document.getElementsByClassName("chat-container").item(0).appendChild(nameDiv);
   document.getElementsByClassName("chat-container").item(0).appendChild(balloon);
