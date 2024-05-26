@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ParticipationChatRoomRepository {
     public ParticipationChatRoom save(ParticipationChatRoom pChatRoom);
-    public Optional<ParticipationChatRoom> findByChatRoomId(Long chatRoomId);
+    public List<ParticipationChatRoom> findByChatRoomId(Long chatRoomId);
     public Optional<ParticipationChatRoom> findByMemberIdAndChatRoomId(Long memberId, Long chatRoomId);
     public List<ChatRoomDto> findByMemberId(Long memberId);
 }

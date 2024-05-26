@@ -107,10 +107,16 @@ public class ChatService {
      * @param memberId 채팅방에 입장하는 user의 memberID
      * @param chatRoomId 입장할 채팅방 ID
      */
-    public void addUserInChattingRoom(Long memberId, Long chatRoomId) {
+    public boolean addUserInChattingRoom(Long memberId, Long chatRoomId) {
         // 채팅방에 유저 추가.(채팅방에 사람이 들어옴)
-        participationChatRoomRepository.save(new ParticipationChatRoom(memberId, chatRoomId));
+        List<ParticipationChatRoom> result = participationChatRoomRepository.findByChatRoomId(chatRoomId);
+        if(result != null && result.isEmpty()) {}
+        else
+            for(int i = 0 ; i < result.size(); i++)
+                if(result.get(i).getMemberId().equals(memberId)) return false; // 초대하고자 하는 방에 해당 유저가 이미 존재하면 아무일도 안 일어남.
 
+        participationChatRoomRepository.save(new ParticipationChatRoom(memberId, chatRoomId));
+        return true;
     }
 
     /**

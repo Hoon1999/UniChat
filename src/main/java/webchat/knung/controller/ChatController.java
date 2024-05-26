@@ -147,8 +147,11 @@ public class ChatController {
         Optional<Member> result = memberService.findByLoginId(loginId);
 
         if(result.isPresent()) {
-            chatService.addUserInChattingRoom(result.get().getMemberId(), Long.parseLong(roomId));
-            return "<script>alert('초대가 완료되었습니다.'); window.close();</script>";
+            boolean b = chatService.addUserInChattingRoom(result.get().getMemberId(), Long.parseLong(roomId));
+            if(b)
+                return "<script>alert('초대가 완료되었습니다.'); window.close();</script>";
+            else
+                return "<script>alert('이미 방에 존재하는 유저입니다.'); window.close();</script>";
         }
         else {
             return "<script>alert('존재하지 않는 아이디 입니다.'); window.close();</script>";
