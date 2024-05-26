@@ -19,7 +19,9 @@
     <input type="button" value="취소">
 
     <script>
-        window.resizeTo(document.forms[0].offsetWidth, document.forms[0].offsetHeight);
+        window.onload = function() {
+            window.resizeTo(document.forms[0].offsetWidth, document.forms[0].offsetHeight);
+        }
     </script>
 </form>
 </body>
