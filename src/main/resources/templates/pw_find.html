@@ -167,7 +167,7 @@
       <section>비밀번호 찾기</section>
     </section>
     <br><br>
-    <form action="findPw" method="post" class="user-info" onsubmit="return nullData()">
+    <form id="myForm" method="post" class="user-info" onsubmit="return nullData()">
 
       <input type="email" id="email" name ="email" placeholder="* 이메일" /><br><br>
 <!--      <input type="text" id="name" name = "name" placeholder="* 이름" /><br><br>-->
@@ -191,8 +191,28 @@
 
     </form>
   </section>
-
 </section>
+<script>
+  document.getElementById("button").onclick = function (e) {
+    e.preventDefault(); // form - submit 방지
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+      if( this.readyState == 4 && this.status == 200) {
+        alert(this.responseText);
+      }
+    }
+    let formData = new FormData(document.getElementById("myForm"));
+    xhttp.open("POST", "/findPw");
+    xhttp.send(formData);
+  }
 
+
+
+
+
+
+
+
+</script>
 </body>
 </html>
