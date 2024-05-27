@@ -56,7 +56,7 @@ public class MemberService {
         if(byEmailAndQna.isPresent()) {
             // NULL 이 아니다.(이메일 + 질의응답 이 일치하는 레코드가 존재한다.)
             Member findMember = byEmailAndQna.get();
-            return findMember.getLoginId();
+            return "회원님의 아이디는 " + findMember.getLoginId() + " 입니다.";
         }
         else {
             // 조회 결과가 Null 이다.
@@ -67,7 +67,7 @@ public class MemberService {
     public String findPw(Member member) {
         Optional<Member> result = memberRepository.findByLoginIdAndEmailAndQna(member.getLoginId(), member.getEmail(), member.getQna());
         if(result.isPresent()){
-            return result.get().getPassword();
+            return "회원님의 비밀번호는" + result.get().getPassword() + " 입니다.";
         }
         else {
             return "일치하는 회원정보가 존재하지 않습니다.";
