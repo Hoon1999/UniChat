@@ -22,6 +22,10 @@ public class LoginController {
     // 로그인
     @GetMapping("/")
     public String login() {
+        return "knung";
+    }
+    @GetMapping("/login")
+    public String login2() {
         return "login";
     }
     // 로그인
