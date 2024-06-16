@@ -62,6 +62,9 @@ public class ChatService {
         //obj.setChatRoomImg("/images/default_profile_image.png");
         return chatRoomRepository.save(obj);
     }
+    public void exitChattingRoom(Long memberId, Long roomId) {
+        participationChatRoomRepository.deleteByMemberIdAndChatRoomId(memberId, roomId);
+    }
     public void updateChattingRoom(ChattingRoomEditForm form) throws IOException {
         // DTO 를 꼭 써야하나?
         // 1. 이름 변경여부 확인.

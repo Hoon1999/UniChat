@@ -11,4 +11,5 @@ public interface ParticipationChatRoomRepository {
     public List<ParticipationChatRoom> findByChatRoomId(Long chatRoomId);
     public Optional<ParticipationChatRoom> findByMemberIdAndChatRoomId(Long memberId, Long chatRoomId);
     public List<ChatRoomDto> findByMemberId(Long memberId);
+    public Long deleteByMemberIdAndChatRoomId(Long memberId, Long chatRoomId);
 }

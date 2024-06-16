@@ -53,7 +53,6 @@ public class ChatController {
             else
                 obj.put("message_seq", "새 채팅방 입니다.");
             //System.out.println(obj.toString());
-
             data.add(obj);
         }
         JSONObject chattingRoomList = new JSONObject();
@@ -109,6 +108,14 @@ public class ChatController {
         chatService.addUserInChattingRoom((Long) session.getAttribute("memberId"), result.getChatRoomId());
 
         return result.getChatName();
+    }
+    // 채팅방 삭제하기
+    @PostMapping(value = "exitChattingRoom")
+    @ResponseBody
+    public String createChattingRoom(@PathVariable("roomId") String roomId, HttpSession session) {
+        // 채팅방에서 나가기
+        chatService.exitChattingRoom((Long) session.getAttribute("memberId"), Long.parseLong(roomId));
+        return "";
     }
 
     // 채팅방 정보 수정
