@@ -3,6 +3,8 @@ package webchat.knung.controller;
 import jakarta.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -109,11 +111,14 @@ public class ChatController {
 
         return result.getChatName();
     }
-    // 채팅방 삭제하기
+    // 채팅방 나가기
     @PostMapping(value = "exitChattingRoom")
     @ResponseBody
-    public String createChattingRoom(@PathVariable("roomId") String roomId, HttpSession session) {
+    public String exitChattingRoom(@RequestBody String data, HttpSession session) throws ParseException {
         // 채팅방에서 나가기
+        JSONObject obj = (JSONObject) (new JSONParser().parse(data));
+        String roomId = ""+ obj.get("roomId");
+
         chatService.exitChattingRoom((Long) session.getAttribute("memberId"), Long.parseLong(roomId));
         return "";
     }
