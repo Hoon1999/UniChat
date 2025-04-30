@@ -30,11 +30,16 @@
 - CSS 100%
 
 **김정훈**<br>
-- 사용자 화면 및 채팅 개발
 - HTML 50%
+  - 디자인 시안을 기반으로 HTML 구조 구성 및 화면 요소 배치
 - JS 100%
+  - JavaScript로 백엔드 API와의 연동 로직 구현 (화면 출력, 채팅방 생성, 메시지 전송 등)
+  - 받은 채팅 데이터를 실시간으로 화면에 출력하는 동적 UI 구성
 - Java/Spring 100%
+  - STOMP 프로토콜 기반의 실시간 채팅 로직 구현
+  - 로그인, 채팅방 생성, 메시지 송수신 등 주요 기능 구현
 - DB 설계 및 SQL 작성 100%
+  - 사용자 및 채팅방 테이블 설계 및 SQL 쿼리 작성
 
 **김찬호**<br>
 - JavaScript 개발
@@ -43,6 +48,7 @@
 ![architecture](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/architecture_v1.png?raw=true)
 
 ## ERD
+![ERD](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/erd_v1.png?raw=true)
 
 ## 프로젝트 결과물
 ![result1](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_1.jpeg?raw=true)
