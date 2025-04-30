@@ -45,12 +45,12 @@
 ## ERD
 
 ## 프로젝트 결과물
-![result1](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_1.png?raw=true)
-![result2](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_2.png?raw=true)
-![result3](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_3.png?raw=true)
-![result4](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_4.png?raw=true)
-![result5](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_5.png?raw=true)
-![result6](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_6.png?raw=true)
-![result7](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_7.png?raw=true)
-![result8](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_8.png?raw=true)
-![result9](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_9.png?raw=true)
+![result1](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_1.jpeg?raw=true)
+![result2](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_2.jpeg?raw=true)
+![result3](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_3.jpeg?raw=true)
+![result4](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_4.jpeg?raw=true)
+![result5](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_5.jpeg?raw=true)
+![result6](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_6.jpeg?raw=true)
+![result7](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_7.jpeg?raw=true)
+![result8](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_8.jpeg?raw=true)
+![result9](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_9.jpeg?raw=true)
