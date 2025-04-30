@@ -40,7 +40,17 @@
 - JavaScript 개발
 
 ## 아키텍처
+![architecture](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/architecture_v1.png?raw=true)
 
 ## ERD
 
 ## 프로젝트 결과물
+![result1](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_1.png?raw=true)
+![result2](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_2.png?raw=true)
+![result3](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_3.png?raw=true)
+![result4](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_4.png?raw=true)
+![result5](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_5.png?raw=true)
+![result6](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_6.png?raw=true)
+![result7](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_7.png?raw=true)
+![result8](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_8.png?raw=true)
+![result9](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_9.png?raw=true)
