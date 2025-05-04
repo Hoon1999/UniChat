@@ -58,7 +58,7 @@ jobs:
       # GITHUB_SHA 는 Github actions 에서 자동으로 제공되는 환경변수 중 하나이다.
       # SHA는 설명 안해도 알것이고.. 몰라도 상관없다. SHA 값은 현재 commit 의 SHA 해시 값이다.
       - name: Make zip file
-        run: zip -r ./$GITHUB_SHA.zip
+        run: zip -r ./$GITHUB_SHA.zip .
         shell: bash
 
       ## AWS 자격 증명
