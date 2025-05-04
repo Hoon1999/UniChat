@@ -1,0 +1,28 @@
+version: 0.0
+os: linux
+
+# source 에 있는 파일들을 destination 으로 복사한다.
+# source 는 appspec.yml 파일을 기준으로 상대경로가 된다.
+# source: / 이렇게 작성하면 os 기준으로 root 경로가 아니라 appspec.yml 파일이 있는 위치이다.
+# 즉 다음 내용은 appspec.yml 파일이 위치한 경로에 있는 모든 파일을 
+files: 
+  - source: /
+    destination: /opt/unichat
+    overwrite: yes
+
+# 권한 부여
+# object : 권한을 부여할 대상 지정
+permission:
+  - object: /opt/unichat
+    owner: ubuntu
+    group: ubuntu
+    mode: 755
+
+# install 단계가 끝나면 deploy.sh 스크립트를 수행하도록 설정.
+# deploy.sh 는 jar 파일을 실행하는 스크립트이다.
+# runas: root 는 root 권한으로 실행한다는 의미이다.
+hooks:
+  AfterInstall:
+    - location: deploy.sh
+      timeout: 60
+      runas: root
