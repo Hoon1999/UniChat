@@ -21,14 +21,13 @@ else
   sleep 5
 fi
 
-echo "> 새 애플리케이션 배포"
+echo "> 새 애플리케이션 배포를 시작합니다."
 
-echo "> JAR NAME: $JAR_NAME"
+echo "> JAR PATH: $JAR_PATH"
 
-echo "> $JAR_NAME 에 실행권한 추가"
+echo "> $JAR_PATH 에 실행권한 추가"
+chmod +x $JAR_PATH
 
-chmod +x $JAR_NAME
+echo "> $JAR_PATH 실행"
 
-echo "> $JAR_NAME 실행"
-
-nohup java -Duser.timezone=Asia/Seoul -jar $JAR_NAME >> $REPOSITORY/nohup.out 2>&1 &
+nohup java -Duser.timezone=Asia/Seoul -jar $JAR_PATH >> $REPOSITORY/nohup.out 2>&1 &
