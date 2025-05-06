@@ -4,8 +4,8 @@
 REPOSITORY=/opt/unichat
 
 APP_NAME=unichat
-JAR_NAME=$(ls $REPOSITORY/build/lib/ | grep '.jar' | tail -n 1)
-JAR_PATH=$REPOSITORY/build/lib/$JAR_NAME
+JAR_NAME=$(ls $REPOSITORY/build/libs/ | grep '.jar' | tail -n 1)
+JAR_PATH=$REPOSITORY/build/libs/$JAR_NAME
 
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
 
