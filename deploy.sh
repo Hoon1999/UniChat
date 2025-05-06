@@ -1,10 +1,15 @@
 #!/usr/bin/env bash
 
+# 내 프로젝트의 위치
 REPOSITORY=/opt/unichat
 
+APP_NAME=unichat
+JAR_NAME=$(ls $REPOSITORY/build/lib/ | grep '.jar' | tail -n 1)
+JAR_PATH=$REPOSITORY/build/lib/$JAR_NAME
+
 echo "> 현재 구동 중인 애플리케이션 pid 확인"
-PORT = $(8080)
-CURRENT_PID=$(sudo lsof -t -i:$PORT)
+
+CURRENT_PID=$(pgrep -f $APP_NAME)
 
 echo "현재 구동 중인 애플리케이션 pid: $CURRENT_PID"
 
@@ -17,8 +22,6 @@ else
 fi
 
 echo "> 새 애플리케이션 배포"
-
-JAR_NAME=$(ls -tr $REPOSITORY/*SNAPSHOT.jar | tail -n 1)
 
 echo "> JAR NAME: $JAR_NAME"
 
