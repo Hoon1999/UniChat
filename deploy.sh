@@ -31,7 +31,7 @@ chmod +x $JAR_PATH
 echo "> $JAR_PATH 실행"
 
 echo "> Before \$MYSQL_URL : ${MYSQL_URL}"
-echo "> .bashrc 적용"
+echo "> /etc/profile.d/codedeploy.sh"
 source ~/.bashrc
 echo "> After \$MYSQL_URL : ${MYSQL_URL}"
 
