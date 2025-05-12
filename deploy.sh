@@ -30,4 +30,9 @@ chmod +x $JAR_PATH
 
 echo "> $JAR_PATH 실행"
 
+echo "> Before \$MYSQL_URL : ${MYSQL_URL}"
+echo "> .bashrc 적용"
+source /home/ubuntu/.bashrc
+echo "> After \$MYSQL_URL : ${MYSQL_URL}"
+
 nohup java -Duser.timezone=Asia/Seoul -jar $JAR_PATH >> $REPOSITORY/nohup.out 2>&1 &
