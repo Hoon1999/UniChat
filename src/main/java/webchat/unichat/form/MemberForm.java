@@ -1,4 +1,4 @@
-package webchat.unichat.controller;
+package webchat.unichat.form;
 
 public class MemberForm {
     private Long memberId;

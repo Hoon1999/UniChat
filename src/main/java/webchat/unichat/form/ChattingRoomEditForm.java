@@ -1,4 +1,4 @@
-package webchat.unichat.controller;
+package webchat.unichat.form;
 
 import org.springframework.web.multipart.MultipartFile;
 

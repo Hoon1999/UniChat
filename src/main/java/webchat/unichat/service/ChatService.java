@@ -3,7 +3,7 @@ package webchat.unichat.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import webchat.unichat.controller.ChattingRoomEditForm;
+import webchat.unichat.form.ChattingRoomEditForm;
 import webchat.unichat.domain.ChatMessage;
 import webchat.unichat.domain.ChatRoom;
 import webchat.unichat.domain.Member;

@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import webchat.unichat.domain.Member;
+import webchat.unichat.form.LoginForm;
+import webchat.unichat.form.MemberForm;
 import webchat.unichat.service.MemberService;
 
 @Controller

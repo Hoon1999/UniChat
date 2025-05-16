@@ -13,6 +13,7 @@ import webchat.unichat.domain.Member;
 import webchat.unichat.dto.ChatRoomDto;
 import webchat.unichat.dto.MessageDto;
 import webchat.unichat.dto.inviteDTO;
+import webchat.unichat.form.ChattingRoomEditForm;
 import webchat.unichat.service.ChatService;
 import webchat.unichat.service.MemberService;
 
