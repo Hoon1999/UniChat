@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
     <title>로그인</title>
@@ -21,7 +22,8 @@
             flex-direction: column;
             align-items: center;
             width: 470px;
-            height: auto; /* 높이를 자동으로 조절하도록 변경 */
+            height: auto;
+            /* 높이를 자동으로 조절하도록 변경 */
             margin-top: 72px;
             margin-bottom: 70px;
         }
@@ -68,7 +70,7 @@
 
         }
 
-        .login1{
+        .login1 {
             margin-top: 10px;
             width: 470px;
             height: 75px;
@@ -90,7 +92,8 @@
         }
 
         .But_check {
-            width: 150px; /* 버튼의 너비를 줄여서 옆으로 배치될 수 있도록 조정 */
+            width: 150px;
+            /* 버튼의 너비를 줄여서 옆으로 배치될 수 있도록 조정 */
             height: 75px;
             font-weight: 400;
             font-size: 18px;
@@ -103,26 +106,61 @@
         }
     </style>
 </head>
+
 <body>
-<section class="container">
-    <section class="member-container">
+    <section class="container">
+        <section class="member-container">
 
-        <section class="header">
-            <section>로그인</section>
+            <section class="header">
+                <section>로그인</section>
+            </section>
+            <br><br>
+            <form action="authentication" method="post" id="loginForm" class="user-info">
+                <input type="text" id="Id" name="loginId" placeholder="* 아이디" /><br><br>
+                <input type="password" id="password" name="password" placeholder="* 비밀번호" /><br><br>
+
+                <button class="login1" id="login" type="button" onclick="authentication()">로그인</button>
+                <div class="button-group">
+                    <button class="But_check" onclick="location.href='register'" type="button">회원가입</button>
+                    <button class="But_check" id="Find_Username" onclick="location.href='findId'" type="button">아이디
+                        찾기</button>
+                    <button class="But_check" onclick="location.href='findPw'" type="button">비밀번호 찾기</button>
+                </div>
+            </form>
         </section>
-        <br><br>
-        <form action="athentication" method="post" class="user-info">
-            <input type="text" id="Id" name="loginId" placeholder="* 아이디" /><br><br>
-            <input type="password" id="password" name="password" placeholder="* 비밀번호"/><br><br>
-
-            <button class="login1" id="login" type="submit">로그인</button>
-            <div class="button-group">
-                <button class="But_check" onclick="location.href='register'"  type="button">회원가입</button>
-                <button class="But_check" id="Find_Username" onclick="location.href='findId'" type="button">아이디 찾기</button>
-                <button class="But_check" onclick="location.href='findPw'" type="button">비밀번호 찾기</button>
-            </div>
-        </form>
     </section>
-</section>
+    <script>
+        function authentication() {
+            const loginId = document.getElementById("Id").value;
+            const password = document.getElementById("password").value;
+            const xhttp = new XMLHttpRequest();
+
+            const data = {
+                loginId: loginId,
+                password: password
+            }
+
+            xhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    const response = JSON.parse(this.responseText);
+                    if(response.result == "success") {
+                        location.href = response.message;
+                    }
+                    else if(response.result == "fail") {
+                        alert(response.message);
+                    }
+                    else {
+                        // 여기는 로그인 성공도 실패도 아닌 뭔가 잘못된 결과가 나왔을때..
+                        alert("잘못된 결과");
+                        alert(this.responseText);
+                    }
+                }
+            }
+            xhttp.open("POST", "authentication");
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data));
+        }
+    </script>
 </body>
+
 </html>
