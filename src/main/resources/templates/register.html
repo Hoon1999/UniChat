@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="utf-8">
     <title>회원가입</title>
@@ -92,107 +93,96 @@
             border: 1px solid #e39864;
             border-radius: 10px;
         }
-        .select_1234{
+
+        .select_1234 {
             width: 475px;
             height: 50px;
             font-size: 13px;
             margin-bottom: 15px;
 
         }
-        .notice{
+
+        .notice {
             color: #cfcfcf;
         }
     </style>
-<!--    <script>-->
-<!--        //패스워드 체크-->
-<!--        function passwordCheck() {-->
-<!--            var pass = document.getElementById("password").value;-->
-<!--            var pass_check = document.getElementById("confirmPassword").value;-->
-<!--            var btn = document.getElementById("button");-->
-<!--            if (pass_check != pass) {-->
-<!--                btn.disabled = true;-->
-<!--                alert("비밀번호가 동일하지 않습니다.");-->
-<!--            }-->
-<!--            else{-->
-<!--                btn.disabled = false;-->
-<!--            }-->
-<!--        }-->
-<!--        //아이디 체크-->
-<!--        var xmlhttp = false;-->
-<!--        if (window.XMLHttpRequest) {-->
-<!--            xmlhttp = new XMLHttpRequest();-->
-<!--            xmlhttp.overrideMimeType('text/xml');-->
-<!--        }-->
-
-<!--        function Data() {-->
-<!--            var Id = document.getElementById('Id').value;-->
-<!--            var url = 'IdCheck.jsp?Id=' + Id;-->
-<!--            xmlhttp.open('GET', url, true);-->
-<!--            xmlhttp.onreadystatechange = getData;-->
-<!--            xmlhttp.send(null);-->
-<!--        }-->
-
-<!--        function getData() {-->
-<!--            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {-->
-<!--                document.getElementById('ICheck').innerHTML = xmlhttp.responseText;-->
-<!--            }-->
-<!--        }-->
-<!--        //버튼체크-->
-<!--        function nullData() {-->
-<!--            var email = document.getElementById("email").value;-->
-<!--            var name = document.getElementById("name").value;-->
-<!--            var id = document.getElementById("Id").value;-->
-<!--            var password = document.getElementById("password").value;-->
-<!--            var confirmPassword = document.getElementById("confirmPassword").value;-->
-<!--            var phone = document.getElementById("phone").value;-->
-<!--            var btn = document.getElementById("button");-->
-
-<!--            if (email == "" || name == "" || id == "" || password == "" || confirmPassword == "" || phone === "") {-->
-<!--                alert("빈 값을 체크해주세요.");-->
-<!--                return false;-->
-<!--            } else {-->
-<!--                return true;-->
-<!--            }-->
-<!--        }-->
-
-<!--    </script>-->
 </head>
+
 <body>
-<section class="container">
-    <section class="member-container">
+    <section class="container">
+        <section class="member-container">
 
-        <section class="header">
-            <section>회원 가입을 위해</section>
-            <section>정보를 입력해주세요</section>
+            <section class="header">
+                <section>회원 가입을 위해</section>
+                <section>정보를 입력해주세요</section>
+            </section>
+            <br><br>
+            <form action="register" method="post" class="user-info" onsubmit="return nullData()">
+
+                <input type="email" id="email" name="email" onchange="checkDuplicate(this)" placeholder="* 이메일" /><br>
+                <label id="checkEmail" style="color: #C55A11;"></label><br>
+                <input type="text" id="name" name="name" placeholder="* 이름" /><br><br>
+                <input type="text" id="Id" name="loginId" onchange="checkDuplicate(this)" placeholder="* 아이디" /><br>
+                <label id="checkLoginId" style="color: #C55A11; font-size: 10px;"></label><br>
+                <input type="password" id="password" name="password" placeholder="* 비밀번호" /><br><br>
+                <!--            <input type="password" id="confirmPassword" onblur="passwordCheck()" placeholder="* 비밀번호 확인" /><br><br>-->
+                <h2>질문을 선택해주세요</h2>
+                <select name="like" class="select_1234">
+                    <option disabled selected>선택해주세요</option>
+                    <option value="1">내가 좋아하는 과일은?</option>
+                    <option value="2">나의 첫 반려동물은?</option>
+                    <option value="3">내가 태어난 곳은?</option>
+                    <option value="4">좋아하는 캐릭터는?</option>
+                </select>
+                <input type="text" id="check_box" name="qna" placeholder="질문체크" />
+                <p class="notice">아이디 비밀번호 찾을 때 사용하는 답변 메일로 사용됨
+                </p>
+
+
+                <button class="button" id="button" type="submit">가입하기</button>
+
+            </form>
         </section>
-        <br><br>
-        <form action="register" method="post" class="user-info" onsubmit="return nullData()">
 
-            <input type="email" id="email" name ="email" placeholder="* 이메일" /><br><br>
-            <input type="text" id="name" name ="name" placeholder="* 이름" /><br><br>
-            <input type="text" id="Id" name = "loginId" onblur="Data()" placeholder="* 아이디" /><br>
-            <label id="ICheck" style="color: #C55A11; font-size: 10px;"></label><br>
-            <input type="password" id="password" name = "password" placeholder="* 비밀번호" /><br><br>
-<!--            <input type="password" id="confirmPassword" onblur="passwordCheck()" placeholder="* 비밀번호 확인" /><br><br>-->
-            <h2>질문을 선택해주세요</h2>
-            <select name="like" class="select_1234">
-                <option disabled selected>선택해주세요</option>
-                <option value="1">내가 좋아하는 과일은?</option>
-                <option value="2">나의 첫 반려동물은?</option>
-                <option value="3">내가 태어난 곳은?</option>
-                <option value="4">좋아하는 캐릭터는?</option>
-            </select>
-            <input type="text" id="check_box" name="qna" placeholder="질문체크" />
-            <p class="notice">아이디 비밀번호 찾을 때 사용하는 답변 메일로 사용됨
-         </p>
-
-
-            <button class="button" id="button" type="submit">가입하기</button>
-
-        </form>
     </section>
+    <script>
+        function checkDuplicate(event) {
+            const data = {
+                [event.id]: event.value
+            }
+            const xhttp = new XMLHttpRequest();
 
-</section>
+            xhttp.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let label;
+                    if (event.id == "email") {
+                        label = document.getElementById("checkEmail");
+                    } 
+                    else if (event.id == "loginId") {
+                        label = document.getElementById("checkLoginId");
+                    }
 
+                    const response = JSON.parse(this.responseText);
+                    if(response.result == "success") {
+                        // 경고 글자 색을 녹색으로 변경합니다
+                        // value 가 true 면 회원가입 버튼을 클릭했을 때 통과가 가능합니다.
+                        label.style.color = "green";
+                        label.value = true;
+                    }
+                    else if(response.result = "fail") {
+                        // 경고 문구 글자 색을 적색으로 변경합니다
+                        // value 가 false 면 회원가입 버튼을 클릭했을 때 통과가 불가능합니다.
+                        label.style.color = "red";
+                        label.value = false;
+                    }
+                    label.innerText = response.message;
+                }
+            };
+            xhttp.open("POST", "/register/check-duplicate");
+            xhttp.setRequestHeader("Content-Type", "application/json");
+            xhttp.send(JSON.stringify(data));
+        }
+    </script>
 </body>
+
 </html>

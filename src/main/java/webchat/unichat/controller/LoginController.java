@@ -15,6 +15,7 @@ import webchat.unichat.service.MemberService;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class LoginController {
@@ -88,6 +89,21 @@ public class LoginController {
         memberService.signUp(member);
 
         return "redirect:/";
+    }
+    @PostMapping(value = "/register/check-duplicate")
+    @ResponseBody
+    public Map<String, String> checkDuplicate(@RequestBody Map<String, String> data) {
+        Map<String, String> response = new HashMap<>();
+        Set<String> keys = data.keySet();
+        for(String key : keys) {
+            if(key.equals("email")){
+                response = memberService.checkDuplicateEmail(data.get(key));
+            }
+            else if(key.equals("loginId")) {
+                response = memberService.checkDuplicateLoginId(data.get(key));
+            }
+        }
+        return response;
     }
 
     // 아이디 찾기

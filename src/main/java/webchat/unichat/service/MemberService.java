@@ -4,6 +4,8 @@ import org.springframework.transaction.annotation.Transactional;
 import webchat.unichat.domain.Member;
 import webchat.unichat.repository.MemberRepository;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @Transactional
@@ -89,6 +91,34 @@ public class MemberService {
             // 해당하는 유저가 존재하지 않음.
             return "UnKnown";
         }
+    }
+    public Map<String, String> checkDuplicateEmail(String email) {
+        Map<String, String> rt = new HashMap<>();
+        Optional<Member> result = memberRepository.findByEmail(email);
+
+        if(result.isPresent()) {
+            rt.put("result", "fail");
+            rt.put("message", "이미 사용중인 이메일입니다.");
+        }
+        else {
+            rt.put("result", "success");
+            rt.put("message", "사용할 수 있는 이메일입니다.");
+        }
+
+        return rt;
+    }
+    public Map<String, String> checkDuplicateLoginId(String loginId) {
+        Map<String, String> rt = new HashMap<>();
+        Optional<Member> result = memberRepository.findByLoginId(loginId);
+        if(result.isPresent()) {
+            rt.put("result", "fail");
+            rt.put("message", "이미 사용중인 아이디입니다.");
+        }
+        else {
+            rt.put("result", "success");
+            rt.put("message", "사용할 수 있는 아이디입니다.");
+        }
+        return rt;
     }
     public Optional<Member> findByLoginId(String loginId) {
         return memberRepository.findByLoginId(loginId);
