@@ -78,6 +78,7 @@ public class LoginController {
         return "register";
     }
     @PostMapping(value = "/register")
+    @ResponseBody
     public String register(MemberForm form) {
         Member member = new Member();
         member.setLoginId(form.getLoginId());
@@ -86,9 +87,13 @@ public class LoginController {
         member.setName(form.getName());
         member.setQna(form.getQna());
 
-        memberService.signUp(member);
+        boolean result = memberService.signUp(member);
 
-        return "redirect:/";
+//        return "redirect:/";
+        if(result)
+            return "success";
+        else
+            return "fail";
     }
     @PostMapping(value = "/register/check-duplicate")
     @ResponseBody

@@ -117,7 +117,7 @@
                 <section>정보를 입력해주세요</section>
             </section>
             <br><br>
-            <form action="register" method="post" class="user-info" onsubmit="return nullData()">
+            <form id="registrationForm" action="register" method="post" class="user-info" onsubmit="return nullData()">
 
                 <input type="email" id="email" name="email" onchange="checkDuplicate(this)" placeholder="* 이메일" /><br>
                 <label id="checkEmail" style="color: #C55A11;"></label><br>
@@ -139,13 +139,42 @@
                 </p>
 
 
-                <button class="button" id="button" type="submit">가입하기</button>
+                <button class="button" id="button" type="button" onclick="submitRegistration()">가입하기</button>
 
             </form>
         </section>
 
     </section>
     <script>
+        function submitRegistration() {
+            const checkEmail = document.getElementById("checkEmail");
+            const checkLoginId = document.getElementById("checkLoginId");
+            if(checkEmail.value != true) {
+                alert("이메일 중복을 확인해주세요.");
+                return;
+            }
+            if(checkLoginId.value != true) {
+                alert("아이디 중복 체크를 확인해주세요.");
+                return;
+            }
+            const xhttp = new XMLHttpRequest();
+            const form = new FormData(document.getElementById("registrationForm"));
+            
+            xhttp.onreadystatechange = function() {
+                if(this.readyState == 4 && this.status == 200) {
+                    if(this.responseText == "success"){
+                        alert("회원가입이 완료되었습니다.");
+                        location.href = "/login"
+                    }
+                    else {
+                        alert("회원가입에 실패하였습니다.");
+                    }
+                }
+            }
+            xhttp.open("POST", "/register");
+            xhttp.send(form);
+        }
+
         function checkDuplicate(event) {
             const data = {
                 [event.id]: event.value

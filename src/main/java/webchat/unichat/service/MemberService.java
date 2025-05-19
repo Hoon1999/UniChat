@@ -19,14 +19,15 @@ public class MemberService {
     /**
      * 회원가입
      */
-    public void signUp(Member member) {
+    public boolean signUp(Member member) {
         boolean isExist = memberRepository.existsByLoginIdOrEmail(member.getLoginId(), member.getEmail());
         if(isExist) {
             System.out.println("exist");
 
-            return;
+            return false;
         }
         memberRepository.save(member);
+        return true;
     }
     /**
      * 로그인
