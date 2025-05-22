@@ -15,19 +15,42 @@
 </head>
 <body>
 
-<form action="/editChattingRoom" method="post" enctype="multipart/form-data">
+<form action="/editChattingRoom" id="edit-form" method="post" enctype="multipart/form-data" onsubmit="return false">
     <input type="hidden" id="roomId" name="roomId" th:value="${roomId}">
     <label for="roomName">채팅방 이름: </label>
     <input type="text" id="roomName" name="roomName" placeholder="변경할 채팅방 이름"><br>
     <label for="roomImage">채팅방 이미지: </label><input type="file" id="roomImage" name="roomImage" value="사진 업로드"><br>
-    <input type="submit" id="sendBtn" value="변경">
-    <input type="button" value="취소">
+    <input type="button" id="sendBtn" onclick="editSubmit()" value="변경">
+    <input type="button" value="창닫기" onclick="window.close()">
+
+</form>
 
     <script>
         window.onload = function() {
             window.resizeTo(document.forms[0].offsetWidth + 40, document.forms[0].offsetHeight + 100);
         }
+        // custom submit
+        // async 를 쓰는 이유 : await 는 async 함수 내에서만 사용가능
+        async function editSubmit() {
+            const formData = new FormData(document.getElementById("edit-form"));
+
+            // await : 응답이 올 때까지 기다려라.
+            // fetch 는 xhttp 대신 사용할 수 있는거임.
+            const response = await fetch("/editChattingRoom", {
+                method: "POST",
+                body: formData
+            });
+
+            // 응답이 200번대이면, response.ok 값이 true 가 된다.
+            if(response.ok) {
+            // 채팅방 새로고침
+                window.opener.loadChattingRooms();
+                window.close();
+            }
+            else {
+                alert("채팅방 정보를 수정하는데 문제가 발생했습니다.");
+            }
+        }
     </script>
-</form>
 </body>
 </html>
