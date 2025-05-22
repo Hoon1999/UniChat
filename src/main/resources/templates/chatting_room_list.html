@@ -14,7 +14,7 @@
 
         .container {
             width: 80%;
-            max-width: 600px;
+            /* max-width: 600px; */
             background-color: #f9f9f9;
             border-radius: 10px;
             padding: 20px;
@@ -32,6 +32,7 @@
             display: flex;
             flex-direction: column;
             align-items: flex-start;
+            min-height: 500px;
             padding: 20px;
         }
 
@@ -127,6 +128,12 @@
             width: 20px;
             height: 20px;
             margin-right: 40px;
+        }
+        .empty-message {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
     </style>
 </head>
@@ -226,8 +233,12 @@
                 container.innerHTML = ""; // 기존 항목 삭제(초기화)
 
                 let results = JSON.parse(this.responseText).data;
-                console.log(results[0]);
-
+                console.log("results[0]: ", results[0]);
+                console.log("response: ", this.responseText);
+                if(isEmpty(results[0])) {
+                    addEmptyMessage();
+                }
+            
                 for(let i = 0; i < results.length; i++) {
                     createChattingRoom(results[i].roomId, results[i].name, results[i].last_date, results[i].message_seq, results[i].img_link);
                 }
@@ -297,6 +308,23 @@
         };
         xhttp.open("POST", "exitChattingRoom");
         xhttp.send(JSON.stringify({"roomId": roomId}));
+    }
+    function isEmpty(str) {
+        if(typeof str == "undefined" || str == null || str =="") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    function addEmptyMessage() {
+        let containers = document.getElementsByClassName("profile-container");
+        let container = containers.item(0);
+        let p = document.createElement('p');
+
+        p.setAttribute('class', "empty-message");
+        p.innerText = "현재 참가중인 채팅방이 없습니다";
+        container.appendChild(p);
     }
 </script>
 </body>
