@@ -7,14 +7,14 @@
 <body>
 <form action="/inviteUser" method="post" style="display: inline-block;">
     <input name="roomId" type="hidden" th:value="${roomId}">
-    <input name="loginId" type="text" placeholder="초대할 유저의 로그인 ID를 입력해주세요"><br>
+    <input style="width: 250px;" name="loginId" type="text" placeholder="초대할 유저의 로그인 ID를 입력해주세요"><br>
     <div id="result"></div><br>
     <input type="submit" value="초대">
     <input type="button" onclick="window.close()" value="닫기">
 </form>
 <script>
     window.onload = function() {
-        window.resizeTo(document.forms[0].offsetWidth, document.forms[0].offsetHeight);
+        window.resizeTo(document.forms[0].offsetWidth+50, document.forms[0].offsetHeight+100);
     }
     function formSubmit() {
     // 힝 안되네..

@@ -6,6 +6,10 @@
     <style>
         form {
             display: inline-block;
+            /* width: fit-content; */
+        }
+        input {
+            margin-bottom: 5px;
         }
     </style>
 </head>
@@ -13,14 +17,15 @@
 
 <form action="/editChattingRoom" method="post" enctype="multipart/form-data">
     <input type="hidden" id="roomId" name="roomId" th:value="${roomId}">
-    채팅방 이름: <input type="text" id="roomName" name="roomName" placeholder="변경할 채팅방 이름"><br>
-    채팅방 이미지: <input type="file" name="roomImage" value="사진 업로드"><br>
+    <label for="roomName">채팅방 이름: </label>
+    <input type="text" id="roomName" name="roomName" placeholder="변경할 채팅방 이름"><br>
+    <label for="roomImage">채팅방 이미지: </label><input type="file" id="roomImage" name="roomImage" value="사진 업로드"><br>
     <input type="submit" id="sendBtn" value="변경">
     <input type="button" value="취소">
 
     <script>
         window.onload = function() {
-            window.resizeTo(document.forms[0].offsetWidth, document.forms[0].offsetHeight);
+            window.resizeTo(document.forms[0].offsetWidth + 40, document.forms[0].offsetHeight + 100);
         }
     </script>
 </form>
