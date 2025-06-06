@@ -16,8 +16,8 @@ public interface SpringDataJpaMemberRepository extends JpaRepository<Member, Lon
     Optional<Member> findByName(String name);
 
     @Override
-    Optional<Member> findByEmailAndQna(String email, String qna);
+    Optional<Member> findByEmailAndQuestionAndAnswer(String email, String question, String answer);
 
     @Override
-    Optional<Member> findByLoginIdAndEmailAndQna(String loginId, String email, String qna);
+    Optional<Member> findByLoginIdAndEmailAndQuestionAndAnswer(String loginId, String email, String question, String answer);
 }

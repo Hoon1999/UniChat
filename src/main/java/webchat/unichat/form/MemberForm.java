@@ -5,18 +5,20 @@ public class MemberForm {
     private String loginId;
     private String password;
     private String email;
-    private String qna;
+    private String answer;
+    private String question;
     private String name;
 
     public MemberForm() {
     }
 
-    public MemberForm(Long memberId, String loginId, String password, String email, String qna, String name) {
+    public MemberForm(Long memberId, String loginId, String password, String email, String answer, String question, String name) {
         this.memberId = memberId;
         this.loginId = loginId;
         this.password = password;
         this.email = email;
-        this.qna = qna;
+        this.answer = answer;
+        this.question = question;
         this.name = name;
     }
 
@@ -52,12 +54,20 @@ public class MemberForm {
         this.email = email;
     }
 
-    public String getQna() {
-        return qna;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setQna(String qna) {
-        this.qna = qna;
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
     }
 
     public String getName() {

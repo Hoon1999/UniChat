@@ -55,7 +55,7 @@ public class MemberService {
      * 아이디 찾기
      */
     public String findId(Member member) {
-        Optional<Member> byEmailAndQna = memberRepository.findByEmailAndQna(member.getEmail(), member.getQna());
+        Optional<Member> byEmailAndQna = memberRepository.findByEmailAndQuestionAndAnswer(member.getEmail(), member.getQuestion(), member.getAnswer());
         if(byEmailAndQna.isPresent()) {
             // NULL 이 아니다.(이메일 + 질의응답 이 일치하는 레코드가 존재한다.)
             Member findMember = byEmailAndQna.get();
@@ -68,7 +68,7 @@ public class MemberService {
         }
     }
     public String findPw(Member member) {
-        Optional<Member> result = memberRepository.findByLoginIdAndEmailAndQna(member.getLoginId(), member.getEmail(), member.getQna());
+        Optional<Member> result = memberRepository.findByLoginIdAndEmailAndQuestionAndAnswer(member.getLoginId(), member.getEmail(), member.getQuestion(), member.getAnswer());
         if(result.isPresent()){
             return "회원님의 비밀번호는" + result.get().getPassword() + " 입니다.";
         }

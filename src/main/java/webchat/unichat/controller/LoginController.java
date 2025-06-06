@@ -85,7 +85,8 @@ public class LoginController {
         member.setPassword(form.getPassword());
         member.setEmail(form.getEmail());
         member.setName(form.getName());
-        member.setQna(form.getQna());
+        member.setQuestion(form.getQuestion());
+        member.setAnswer(form.getAnswer());
 
         boolean result = memberService.signUp(member);
 
@@ -121,7 +122,8 @@ public class LoginController {
     public String findId(MemberForm form) {
         Member member = new Member();
         member.setEmail(form.getEmail());
-        member.setQna(form.getQna());
+        member.setQuestion(form.getQuestion());
+        member.setAnswer(form.getAnswer());
 
         return memberService.findId(member);
     }
@@ -140,7 +142,8 @@ public class LoginController {
         Member member = new Member();
         member.setLoginId(form.getLoginId());
         member.setEmail(form.getEmail());
-        member.setQna(form.getQna());
+        member.setQuestion(form.getQuestion());
+        member.setAnswer(form.getAnswer());
 
         return memberService.findPw(member);
     }

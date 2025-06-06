@@ -15,20 +15,24 @@ public class Member {
     private String password;
     @Column(name = "email", unique = true, nullable = false)
     private String email;
-    @Column(name = "qna", nullable = false)
-    private String qna;
     @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "question", nullable = false)
+    private String question;
+    @Column(name = "answer", nullable = false)
+    private String answer;
 
     public Member() {
     }
 
-    public Member(String loginId, String password, String email, String qna, String name) {
+    public Member(Long memberId, String loginId, String password, String email, String qna_q, String name, String qna_a) {
+        this.memberId = memberId;
         this.loginId = loginId;
         this.password = password;
         this.email = email;
-        this.qna = qna;
+        this.question = qna_q;
         this.name = name;
+        this.answer = answer;
     }
 
     public Long getMemberId() {
@@ -63,12 +67,20 @@ public class Member {
         this.email = email;
     }
 
-    public String getQna() {
-        return qna;
+    public String getQuestion() {
+        return question;
     }
 
-    public void setQna(String qna) {
-        this.qna = qna;
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public String getAnswer() {
+        return answer;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 
     public String getName() {
