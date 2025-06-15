@@ -29,7 +29,7 @@ public class LoginController {
     // 로그인
     @GetMapping("/")
     public String login() {
-        return "knung";
+        return "unichat";
     }
     @GetMapping("/login")
     public String login2() {
