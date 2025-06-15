@@ -5,7 +5,7 @@
 - [팀원 소개 및 역할](#팀원-소개-및-역할)
 - [아키텍처](#아키텍처)
 - [ERD](#ERD)
-- [프로젝트 결과물](#프로젝트-결과물)
+- [프로젝트 결과 및 설명](#프로젝트-결과-및-설명)
 
 ## 프로젝트 개요
 프로젝트명: UniChat <br>
@@ -50,13 +50,19 @@
 ## ERD
 ![ERD](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/Unichat/erd_v1.png?raw=true)
 
-## 프로젝트 결과물
-![result1](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_1.jpeg?raw=true)
-![result2](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_2.jpeg?raw=true)
-![result3](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_3.jpeg?raw=true)
-![result4](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_4.jpeg?raw=true)
-![result5](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_5.jpeg?raw=true)
-![result6](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_6.jpeg?raw=true)
-![result7](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_7.jpeg?raw=true)
-![result8](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_8.jpeg?raw=true)
-![result9](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_9.jpeg?raw=true)
+## 프로젝트 결과 및 설명
+![result1](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/Unichat/result_1.png?raw=true)
+![result2](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/Unichat/result_2.png?raw=true)
+![result3](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/Unichat/result_3.png?raw=true)
+![result4](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/Unichat/result_4.png?raw=true)
+
+### 설명
+<hr>
+
+![설명1](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_3.jpeg?raw=true)
+![설명2](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_4.jpeg?raw=true)
+![설명3](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_5.jpeg?raw=true)
+![설명4](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_6.jpeg?raw=true)
+![설명5](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_7.jpeg?raw=true)
+![설명6](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_8.jpeg?raw=true)
+![설명7](https://github.com/Hoon1999/hoon1999.github.io/blob/main/assets/img/etc/knung/result_9.jpeg?raw=true)
