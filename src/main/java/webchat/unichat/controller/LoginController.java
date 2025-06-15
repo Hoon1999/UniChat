@@ -115,7 +115,7 @@ public class LoginController {
     // 아이디 찾기
     @GetMapping(value = "/findId")
     public String findIdForm() {
-        return "Id_find";
+        return "id_find";
     }
     @PostMapping(value = "/findId")
     @ResponseBody
