@@ -14,6 +14,7 @@ import webchat.unichat.dto.ChatRoomDto;
 import webchat.unichat.dto.MessageDto;
 import webchat.unichat.dto.inviteDTO;
 import webchat.unichat.form.ChattingRoomEditForm;
+import webchat.unichat.service.AwsS3Service;
 import webchat.unichat.service.ChatService;
 import webchat.unichat.service.MemberService;
 
@@ -26,10 +27,12 @@ import java.util.Optional;
 public class ChatController {
     ChatService chatService;
     MemberService memberService;
+    AwsS3Service awsS3Service;
 
-    public ChatController(ChatService chatService, MemberService memberService) {
+    public ChatController(ChatService chatService, MemberService memberService, AwsS3Service awsS3Service) {
         this.chatService = chatService;
         this.memberService = memberService;
+        this.awsS3Service = awsS3Service;
     }
 
     @GetMapping(value = "/chatRoom")
@@ -48,7 +51,8 @@ public class ChatController {
             JSONObject obj = new JSONObject();
             obj.put("roomId", item.getChat_room_id());
             obj.put("name", item.getChat_room_name());
-            obj.put("img_link", item.getChat_room_img());
+//            obj.put("img_link", item.getChat_room_img());
+            obj.put("img_link", awsS3Service.getPrisignedUrl(item.getChat_room_img()));
             obj.put("last_date", item.getLast_date());
 
             if( item.getChat_seq() != null)

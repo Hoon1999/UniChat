@@ -26,11 +26,13 @@ public class ChatService {
     ParticipationChatRoomRepository participationChatRoomRepository;
     MessageRepository messageRepository;
     ChatRoomRepository chatRoomRepository;
+    AwsS3Service awsS3Service;
 
-    public ChatService(ParticipationChatRoomRepository participationChatRoomRepository, MessageRepository messageRepository, ChatRoomRepository chatRoomRepository) {
+    public ChatService(ParticipationChatRoomRepository participationChatRoomRepository, MessageRepository messageRepository, ChatRoomRepository chatRoomRepository, AwsS3Service awsS3Service) {
         this.participationChatRoomRepository = participationChatRoomRepository;
         this.messageRepository = messageRepository;
         this.chatRoomRepository = chatRoomRepository;
+        this.awsS3Service = awsS3Service;
     }
 
     public List<ChatRoomDto> listSearch(Member member) {
@@ -88,17 +90,11 @@ public class ChatService {
         }
         else {
             // 1. 파일을 form 에서 꺼냄
-            // 2. 파일의 이름을 저장용 이름으로 변경
-            // 3. 파일을 경로 + 저장용이름에 저장.
-            // 4. 저장이 완료된 파일의 경로를 ChatRoom 테이블의 이미지 column 에 저장.
-            // 저장용 이름은 '임의의 숫자 + 원본 이름' 으로 이루어져 임의의 숫자를 제거하면 원본 이름이 된다.
+            // 2. 파일명을 uuid 로 난수화하고 S3에 저장.
+            // 3. 저장이 완료된 파일의 이름을 테이블에 저장.
 
             MultipartFile file = form.getRoomImage();
-            String originalFilename = file.getOriginalFilename();
-            String storedFileName = System.currentTimeMillis() + "_" + originalFilename;
-            String savePath = "C:/Users/2021102/Desktop/knung_images/" + storedFileName; // windows 용 경로. 해당 폴더가 있어야 한다. 없으면 안만들어주나봄.
-//            String savePath = "/Users/kjhoon44/Desktop/knung_images/" + storedFileName; // for mac
-            file.transferTo(new File(savePath));
+            String storedFileName = awsS3Service.uploadFile(file);
 
             result.setChatRoomImg(storedFileName);
         }
