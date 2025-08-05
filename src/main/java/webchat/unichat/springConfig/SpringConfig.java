@@ -30,12 +30,12 @@ public class SpringConfig {
         this.awsS3Service = awsS3Service;
     }
 
-    @Bean
-    public MemberService memberService() {
-        return new MemberService(memberRepository);
-    }
-    @Bean
-    public ChatService chatService() {
-        return new ChatService(participationChatRoomRepository, messageRepository, chatRoomRepository, awsS3Service);
-    }
+//    @Bean
+//    public MemberService memberService() {
+//        return new MemberService(memberRepository);
+//    }
+//    @Bean
+//    public ChatService chatService() {
+//        return new ChatService(participationChatRoomRepository, messageRepository, chatRoomRepository, awsS3Service);
+//    }
 }

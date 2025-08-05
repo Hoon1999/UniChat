@@ -1,5 +1,6 @@
 package webchat.unichat.service;
 
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import webchat.unichat.domain.Member;
 import webchat.unichat.repository.MemberRepository;
@@ -8,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+@Service
 @Transactional
 public class MemberService {
     MemberRepository memberRepository;
