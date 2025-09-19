@@ -2,6 +2,8 @@ package webchat.unichat.domain;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "member")
 public class Member {
@@ -21,6 +23,17 @@ public class Member {
     private String question;
     @Column(name = "answer", nullable = false)
     private String answer;
+    @Column(name = "role", nullable = true)
+    private String role;
+    @Column(name = "account_status", nullable = false)
+    private String accountStatus;
+    @Column(name = "account_expire", nullable = false)
+    private LocalDateTime accountExpire;
+    @Column(name = "password_expire", nullable = false)
+    private LocalDateTime passwordExpire;
+    @Column(name = "account_disable_reason", nullable = true)
+    private String accountDisableReason;
+
 
     public Member() {
     }
@@ -89,5 +102,45 @@ public class Member {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getAccountStatus() {
+        return accountStatus;
+    }
+
+    public LocalDateTime getAccountExpire() {
+        return accountExpire;
+    }
+
+    public LocalDateTime getPasswordExpire() {
+        return passwordExpire;
+    }
+
+    public String getAccountDisableReason() {
+        return accountDisableReason;
+    }
+
+    public void setAccountStatus(String accountStatus) {
+        this.accountStatus = accountStatus;
+    }
+
+    public void setAccountExpire(LocalDateTime accountExpire) {
+        this.accountExpire = accountExpire;
+    }
+
+    public void setPasswordExpire(LocalDateTime passwordExpire) {
+        this.passwordExpire = passwordExpire;
+    }
+
+    public void setAccountDisableReason(String accountDisableReason) {
+        this.accountDisableReason = accountDisableReason;
     }
 }

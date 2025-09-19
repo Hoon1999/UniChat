@@ -1,16 +1,17 @@
 package webchat.unichat.controller;
 
-import jakarta.servlet.http.HttpSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import webchat.unichat.domain.ChatRoom;
 import webchat.unichat.domain.Member;
 import webchat.unichat.dto.ChatRoomDto;
+import webchat.unichat.dto.MemberDetails;
 import webchat.unichat.dto.MessageDto;
 import webchat.unichat.dto.inviteDTO;
 import webchat.unichat.form.ChattingRoomEditForm;
@@ -41,9 +42,11 @@ public class ChatController {
     }
     @PostMapping(value = "/chatRoom")
     @ResponseBody
-    public JSONObject chatRoomList(HttpSession session) {
+    public JSONObject chatRoomList() {
         Member member = new Member();
-        member.setMemberId((Long) session.getAttribute("memberId"));
+
+        Long memberId = getCurrentMemberId();
+        member.setMemberId(memberId);
 
         List<ChatRoomDto> chatRoomDtos = chatService.listSearch(member);
         JSONArray data = new JSONArray();
@@ -97,34 +100,38 @@ public class ChatController {
 
     // 클라이언트에서 채팅방에 접속
     @GetMapping(value = "/chattingRoom/{roomId}")
-    public String chatGet(@PathVariable("roomId") String roomId, Model model, HttpSession session) {
+    public String chatGet(@PathVariable("roomId") String roomId, Model model) {
         // 접속하려는 채팅방 정보를 받아서 특정 동작을 수행하도록 하는 코드를 추가해야함.
         // 특정 동작 : 1번방 정보를 받으면, 1번방과 연결되도록 하는 동작.
+        Long memberId = getCurrentMemberId();
         model.addAttribute("roomId", roomId);
-        model.addAttribute("memberId", session.getAttribute("memberId"));
+        model.addAttribute("memberId", memberId);
         return "chatting_room";
     }
 
     // 채팅방 만들기
     @PostMapping(value = "createChattingRoom")
     @ResponseBody
-    public String createChattingRoom(HttpSession session) {
+    public String createChattingRoom() {
         // 채팅방을 만듬
         ChatRoom result = chatService.createChattingRoom();
         // 참여중인 채팅방에 본인을 추가.
-        chatService.addUserInChattingRoom((Long) session.getAttribute("memberId"), result.getChatRoomId());
+        Long memberId = getCurrentMemberId();
+        chatService.addUserInChattingRoom(memberId, result.getChatRoomId());
 
         return result.getChatName();
     }
     // 채팅방 나가기
     @PostMapping(value = "exitChattingRoom")
     @ResponseBody
-    public String exitChattingRoom(@RequestBody String data, HttpSession session) throws ParseException {
+    public String exitChattingRoom(@RequestBody String data) throws ParseException {
         // 채팅방에서 나가기
         JSONObject obj = (JSONObject) (new JSONParser().parse(data));
         String roomId = ""+ obj.get("roomId");
 
-        chatService.exitChattingRoom((Long) session.getAttribute("memberId"), Long.parseLong(roomId));
+
+        Long memberId = getCurrentMemberId();
+        chatService.exitChattingRoom(memberId, Long.parseLong(roomId));
         return "";
     }
 
@@ -173,5 +180,8 @@ public class ChatController {
         else {
             return "<script>alert('존재하지 않는 아이디 입니다.'); window.close();</script>";
         }
+    }
+    public Long getCurrentMemberId() {
+        return  ((MemberDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getMemberId();
     }
 }

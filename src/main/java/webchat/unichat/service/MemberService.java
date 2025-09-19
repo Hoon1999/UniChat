@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 import webchat.unichat.domain.Member;
 import webchat.unichat.repository.MemberRepository;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -28,11 +29,16 @@ public class MemberService {
 
             return false;
         }
+        member.setRole("USER");
+        member.setAccountStatus("active");
+        member.setAccountExpire(LocalDateTime.now().plusYears(3));
+        member.setPasswordExpire(LocalDateTime.now().plusMonths(3));
         memberRepository.save(member);
         return true;
     }
     /**
      * 로그인
+     * UserServiceImpl 에서 로그인을 새로 구현하여 더이상 사용되지 않는 로직이다. 삭제해야한다.
      */
     public Member athentication(Member member) {
         // DB에 로그인 아이디 조회

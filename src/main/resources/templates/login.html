@@ -115,8 +115,8 @@
                 <section>로그인</section>
             </section>
             <br><br>
-            <form action="authentication" method="post" id="loginForm" class="user-info">
-                <input type="text" id="Id" name="loginId" placeholder="* 아이디" /><br><br>
+            <form action="login" method="post" id="loginForm" class="user-info">
+                <input type="text" id="username" name="username" placeholder="* 아이디" /><br><br>
                 <input type="password" id="password" name="password" placeholder="* 비밀번호" /><br><br>
 
                 <button class="login1" id="login" type="button" onclick="authentication()">로그인</button>
@@ -131,34 +131,22 @@
     </section>
     <script>
         function authentication() {
-            const loginId = document.getElementById("Id").value;
-            const password = document.getElementById("password").value;
+            const form = document.getElementById("loginForm");
+            const formData = new FormData(form);
             const xhttp = new XMLHttpRequest();
-
-            const data = {
-                loginId: loginId,
-                password: password
-            }
 
             xhttp.onreadystatechange = function() {
                 if(this.readyState == 4 && this.status == 200) {
-                    const response = JSON.parse(this.responseText);
-                    if(response.result == "success") {
-                        location.href = response.message;
-                    }
-                    else if(response.result == "fail") {
-                        alert(response.message);
-                    }
-                    else {
-                        // 여기는 로그인 성공도 실패도 아닌 뭔가 잘못된 결과가 나왔을때..
-                        alert("잘못된 결과");
-                        alert(this.responseText);
-                    }
+                    //const response = JSON.parse(this.responseText);
+                    //alert(this.responseText);
+                    location.href = "/chatting_room_list"
+                }
+                else if (this.readyState == 4 && this.status != 200){
+                    alert("로그인에 실패하였습니다.");
                 }
             }
-            xhttp.open("POST", "authentication");
-            xhttp.setRequestHeader("Content-Type", "application/json");
-            xhttp.send(JSON.stringify(data));
+            xhttp.open("POST", "login");
+            xhttp.send(formData);
         }
     </script>
 </body>
