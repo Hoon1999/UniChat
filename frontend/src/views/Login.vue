@@ -1,7 +1,7 @@
 <template>
     <div id="background">
         <div class="inner-box">
-            <AuthForm :type="type"/>
+            <AuthForm :type="type" @changeType="type=$event"/>
         </div>
     </div>
 </template>

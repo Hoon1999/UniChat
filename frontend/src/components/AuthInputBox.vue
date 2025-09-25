@@ -34,7 +34,7 @@ export default {
     }
 
     input {
-        width: 100%;
+        width: 261px;
         height: 55px;
         border: 0;
         outline: 0;
