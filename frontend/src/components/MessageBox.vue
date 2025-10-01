@@ -1,9 +1,9 @@
 <template>
     <div id="message-box" :class="type">
         <div v-if="type !== 'my-message'" id="profile-image"></div>
-        <div v-if="type === 'my-message'" id="message-time"> {{ time }} </div>
-        <div class="message-content"> {{ content }} </div>
-        <div v-if="type !== 'my-message'" id="message-time"> {{ time }} </div>
+        <div v-if="type === 'my-message'" id="message-time"> {{ data?.send_time }} </div>
+        <div class="message-content"> {{ data?.content }} </div>
+        <div v-if="type !== 'my-message'" id="message-time"> {{ data?.send_time }} </div>
     </div>
 </template>
 <script>
@@ -11,6 +11,7 @@ export default {
     name: "MessageBoxComponent",
     props: {
         type: String,
+        data: Object,
     },
     data() {
         return {
