@@ -1,6 +1,6 @@
 <template>
     <div>
-        <input :type="type" :value="value" :required="required"/>
+        <input :type="type" :name="name" :value="value" :required="required"/>
         <span v-if="type !== 'submit'"> {{ placeholder }}</span>
     </div>
 </template>
@@ -12,6 +12,7 @@ export default {
         placeholder: String,
         value: String,
         type: String,
+        name: String,
         required: String,
     },
     data() {
