@@ -22,6 +22,7 @@
 </template>
 <script>
 import AuthInputBox from './AuthInputBox.vue';
+import { sendRequest } from "@/api/index.js";
 
 export default {
     name: "AuthFormComponent",
@@ -56,20 +57,16 @@ export default {
     methods: {
         submitForm() {
             const form = document.getElementById("form");
-            const formData = new FormData(form);
-            const xhttp = new XMLHttpRequest();
 
             if (this.type === this.signIn) {
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        location.href = "/chatting_room_list"
-                    }
-                    else if (this.readyState == 4 && this.status != 200) {
-                        alert("로그인에 실패하였습니다.");
-                    }
-                }
-                xhttp.open("POST", "http://localhost:8080/login");
-                xhttp.send(formData);
+                const formData = new FormData(form);
+                sendRequest("/login", "POST", formData).then(res => {
+                    console.log(res);
+                    location.href = "/chatting";
+                }).catch(err => {
+                    alert("로그인에 실패하였습니다");
+                    console.log(err);
+                });
             }
             else if (this.type === this.signUp) {
                 const checkEmail = document.getElementById("checkEmail");
@@ -77,22 +74,16 @@ export default {
                     alert("이메일 중복을 확인해주세요.");
                     return;
                 }
-                const xhttp = new XMLHttpRequest();
-                const form = new FormData(document.getElementById("form"));
-
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        if (this.responseText == "success") {
-                            alert("회원가입이 완료되었습니다.");
-                            location.href = "/login_page"
-                        }
-                        else {
-                            alert("회원가입에 실패하였습니다.");
-                        }
-                    }
-                }
-                xhttp.open("POST", "http://localhost:8080/register");
-                xhttp.send(form);
+                const formData = new FormData(document.getElementById("form"));
+                sendRequest("/register", "POST", formData)
+                    .then(res => {
+                        console.log(res);
+                        alert("회원가입이 완료되었습니다");
+                    })
+                    .catch(err => {
+                        console.log(err);
+                        alert("회원가입에 실패하였습니다");
+                    });
             }
             else if (this.type === this.reset) {
                 console.log("미구현");
@@ -102,40 +93,30 @@ export default {
             if(this.type !== this.signUp) {
                 return;
             }
-            const inputName = event.target.name;
-            const inputValue = event.target.value;
             const data = {
-                [inputName]: inputValue
+                email : event.target.value
             }
-            const xhttp = new XMLHttpRequest();
-
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    let label;
-                    if (inputName == "email") {
-                        label = document.getElementById("checkEmail");
-                        label.style.display = "block";
-                    }
-
-                    const response = JSON.parse(this.responseText);
-                    if(response.result == "success") {
+            let label = document.getElementById("checkEmail");
+            label.style.display = "block";
+            sendRequest("/register/check-duplicate", "POST", data)
+                .then(res => {
+                    console.log(res);
+                    if(res.data.result === "success") {
                         // 경고 글자 색을 녹색으로 변경합니다
                         // value 가 true 면 회원가입 버튼을 클릭했을 때 통과가 가능합니다.
                         label.style.color = "green";
                         label.value = true;
-                    }
-                    else if(response.result == "fail") {
+                    } else if (res.data.result == "fail") {
                         // 경고 문구 글자 색을 적색으로 변경합니다
                         // value 가 false 면 회원가입 버튼을 클릭했을 때 통과가 불가능합니다.
                         label.style.color = "red";
                         label.value = false;
                     }
-                    label.innerText = response.message;
-                }
-            };
-            xhttp.open("POST", "http://localhost:8080/register/check-duplicate");
-            xhttp.setRequestHeader("Content-Type", "application/json");
-            xhttp.send(JSON.stringify(data));
+                    label.innerText = res.data.message;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         }
     }
 }

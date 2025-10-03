@@ -22,6 +22,7 @@
 </template>
 <script>
 import InfoCard from './InfoCard.vue';
+import { sendRequest } from '@/api/index.js';
 
 export default {
     name: "InfoCardListComponent",
@@ -38,40 +39,31 @@ export default {
     },
     methods: {
         loadChattingRooms() {
-            console.log("로드 채팅 룸 호출됨");
-            const self = this;
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
+            sendRequest("/chatRoom", "POST")
+                .then(res => {
+                    console.log(res.data.data);
                     // 만들어진 채팅방을 삽입
                     // 채팅방 목록 초기화
-                    self.cards = [];
-
-                    let results = JSON.parse(this.responseText).data;
-                    console.log("results[0]: ", results[0]);
-                    console.log("response: ", this.responseText);
-
-                    for (let i = 0; i < results.length; i++) {
-                        self.cards.push(results[i])
+                    this.cards = [];
+                    // 삽입
+                    let card = res.data.data;
+                    for (let i = 0; i < card.length; i++) {
+                        this.cards.push(card[i])
                     }
-                }
-            }
-            xhttp.open("POST", "http://localhost:8080/chatRoom");
-            xhttp.send();
+                })
+                .catch(err => {
+                    console.log(err);
+                });
         },
 
         createChattingRoom() {
-            // xhttp 내부에서 this 는 xhttp 를 가리킨다.
-            // self 에 vue 인스턴스를 미리 담아놓는다.
-            const self = this;
-            const xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    self.loadChattingRooms();
-                }
-            };
-            xhttp.open("POST", "http://localhost:8080/createChattingRoom");
-            xhttp.send();
+            sendRequest("/createChattingRoom", "POST")
+                .then(res => {
+                    console.log(res);
+                    this.loadChattingRooms();
+                }).catch(err => {
+                    console.log(err);
+                });
         }
     }
 }
