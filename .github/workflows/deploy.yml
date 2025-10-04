@@ -17,8 +17,8 @@ env:
   # 애플리케이션 이름과 배포그룹 이름을 변수에 저장한다.
   CODE_DEPLOY_APPLICATION_NAME: Unichat-CodeDeploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: Unichat-Deploy-Group
-  CODE_DEPLOY_VUE_APPLICATION_NAME: Unichat-CodeDeploy
-  CODE_DEPLOY_VUE_DEPLOYMENT_GROUP_NAME: Unichat-Deploy-Group
+  CODE_DEPLOY_VUE_APPLICATION_NAME: Unichat-Vue-CodeDeploy
+  CODE_DEPLOY_VUE_DEPLOYMENT_GROUP_NAME: Unichat-Vue-Deploy-Group
 
 ## 실행 할 job 목록
 jobs:
