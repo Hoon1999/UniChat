@@ -39,11 +39,11 @@ public class MemberService {
      * UserServiceImpl 에서 로그인을 새로 구현하여 더이상 사용되지 않는 로직이다. 삭제해야한다.
      */
     public Member athentication(Member member) {
-        // DB에 로그인 아이디 조회
-        Optional<Member> byMemberId = memberRepository.findByLoginId(member.getLoginId());
-        if(byMemberId.isPresent()) {
+        // DB에 이메일 조회
+        Optional<Member> byEmail = memberRepository.findByEmail(member.getEmail());
+        if(byEmail.isPresent()) {
             // 로그인 아이디가 존재한다.
-            Member findMember = byMemberId.get();
+            Member findMember = byEmail.get();
             if (findMember.getPassword().equals(member.getPassword())) {
                 // 로그인 비밀번호가 일치한다.
                 return findMember;
@@ -61,11 +61,11 @@ public class MemberService {
      * 아이디 찾기
      */
     public String findId(Member member) {
-        Optional<Member> byEmailAndQna = memberRepository.findByEmailAndQuestionAndAnswer(member.getEmail(), member.getQuestion(), member.getAnswer());
+        Optional<Member> byEmailAndQna = memberRepository.findByEmail(member.getEmail());
         if(byEmailAndQna.isPresent()) {
             // NULL 이 아니다.(이메일 + 질의응답 이 일치하는 레코드가 존재한다.)
             Member findMember = byEmailAndQna.get();
-            return "회원님의 아이디는 " + findMember.getLoginId() + " 입니다.";
+            return "회원님의 아이디는 " + findMember.getEmail() + " 입니다.";
         }
         else {
             // 조회 결과가 Null 이다.
@@ -74,7 +74,7 @@ public class MemberService {
         }
     }
     public String findPw(Member member) {
-        Optional<Member> result = memberRepository.findByLoginIdAndEmailAndQuestionAndAnswer(member.getLoginId(), member.getEmail(), member.getQuestion(), member.getAnswer());
+        Optional<Member> result = memberRepository.findByEmail(member.getEmail());
         if(result.isPresent()){
             return "회원님의 비밀번호는" + result.get().getPassword() + " 입니다.";
         }
@@ -116,7 +116,7 @@ public class MemberService {
     }
     public Map<String, String> checkDuplicateLoginId(String loginId) {
         Map<String, String> rt = new HashMap<>();
-        Optional<Member> result = memberRepository.findByLoginId(loginId);
+        Optional<Member> result = memberRepository.findByEmail(loginId);
         if(result.isPresent()) {
             rt.put("result", "fail");
             rt.put("message", "이미 사용중인 아이디입니다.");
@@ -125,9 +125,11 @@ public class MemberService {
             rt.put("result", "success");
             rt.put("message", "사용할 수 있는 아이디입니다.");
         }
+        rt.put("result", "success");
+        rt.put("message", "사용할 수 있는 아이디입니다.");
         return rt;
     }
     public Optional<Member> findByLoginId(String loginId) {
-        return memberRepository.findByLoginId(loginId);
+        return memberRepository.findByEmail(loginId);
     }
 }
