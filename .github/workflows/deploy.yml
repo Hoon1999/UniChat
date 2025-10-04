@@ -17,11 +17,16 @@ env:
   # 애플리케이션 이름과 배포그룹 이름을 변수에 저장한다.
   CODE_DEPLOY_APPLICATION_NAME: Unichat-CodeDeploy
   CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: Unichat-Deploy-Group
+  CODE_DEPLOY_VUE_APPLICATION_NAME: Unichat-CodeDeploy
+  CODE_DEPLOY_VUE_DEPLOYMENT_GROUP_NAME: Unichat-Deploy-Group
 
 ## 실행 할 job 목록
 jobs:
-  # 딱히 생각나는 job 이름이 없다...
-  deployment-job:
+  spring-deployment:
+    # vue-deployment 가 성공하면 spring-deployment 를 수행하도록 설정
+    # vue 초기 세팅간 CI/CD 여러번 실패할 것을 염두.
+    # spring 이 의미없이 여러번 CI/CD 되는 것을 막기위한 장치.
+    needs: vue-deployment
     
     # ubuntu 최신 버전에서 실행
     runs-on: ubuntu-latest
@@ -83,10 +88,57 @@ jobs:
       # 나는 파일명이 SHA(해시함수) 이므로 매번 달라서 필요 없는 옵션이기는 하다.
       - name: Code Deploy
         run: |
+           aws deploy create-deployment \
+           --deployment-config-name CodeDeployDefault.AllAtOnce \
+           --file-exists-behavior OVERWRITE \
+           --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
+           --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
+           --s3-location bucket=${{ env.S3_BUCKET_NAME }},bundleType=zip,key=$GITHUB_SHA.zip \
+           --region ap-northeast-2
+
+  vue-deployment:
+    # ubuntu 최신 버전에서 실행
+    runs-on: ubuntu-latest
+    
+    # 이 Job 에서 수행할 동작들 작성
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '22'
+        
+      - name: Install dependencies
+        run: npm install
+        working-directory: ./frontend
+
+      - name: Build
+        run: |
+          npm run build
+        working-directory: ./frontend
+
+      - name: Make zip file
+        run: zip -r ./${GITHUB_SHA}_frontend.zip ./frontend/dist
+        shell: bash
+
+      # Github action secret 에서 값을 가져온다.
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} # IAM User 엑세스 키
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }} # IAM User 시크릿 엑세스 키
+          aws-region: ap-northeast-2 # aws-region 없으면 오류나서 추가함..
+
+      - name: Upload to S3
+        run: aws s3 cp --region ap-northeast-2 ./${GITHUB_SHA}_frontend.zip s3://${{ env.S3_BUCKET_NAME }}/${GITHUB_SHA}_frontend.zip
+
+      - name: Code Deploy
+        run: |
           aws deploy create-deployment \
           --deployment-config-name CodeDeployDefault.AllAtOnce \
           --file-exists-behavior OVERWRITE \
-          --application-name ${{ env.CODE_DEPLOY_APPLICATION_NAME }} \
-          --deployment-group-name ${{ env.CODE_DEPLOY_DEPLOYMENT_GROUP_NAME }} \
-          --s3-location bucket=${{ env.S3_BUCKET_NAME }},bundleType=zip,key=$GITHUB_SHA.zip \
+          --application-name ${{ env.CODE_DEPLOY_VUE_APPLICATION_NAME }} \
+          --deployment-group-name ${{ env.CODE_DEPLOY_VUE_DEPLOYMENT_GROUP_NAME }} \
+          --s3-location bucket=${{ env.S3_BUCKET_NAME }},key=${GITHUB_SHA}_frontend.zip,bundleType=zip \
           --region ap-northeast-2
