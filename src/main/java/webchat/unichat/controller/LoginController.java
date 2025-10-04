@@ -42,7 +42,7 @@ public class LoginController {
         return "chatting_room_list";
     }
 
-    // 회원가입
+
     @GetMapping("/register")
     public String registerForm() {
         return "register";
@@ -101,8 +101,6 @@ public class LoginController {
     public String findId(MemberForm form) {
         Member member = new Member();
         member.setEmail(form.getEmail());
-        member.setQuestion(form.getQuestion());
-        member.setAnswer(form.getAnswer());
 
         return memberService.findId(member);
     }
@@ -119,10 +117,7 @@ public class LoginController {
     @ResponseBody
     public String findPw(MemberForm form) {
         Member member = new Member();
-        member.setLoginId(form.getLoginId());
         member.setEmail(form.getEmail());
-        member.setQuestion(form.getQuestion());
-        member.setAnswer(form.getAnswer());
 
         return memberService.findPw(member);
     }
