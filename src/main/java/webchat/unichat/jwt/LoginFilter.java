@@ -31,7 +31,8 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         // request 에서 username 과 password 를 꺼내 AuthenticationManager 에게 넘겨준다.
         // Authentication Manager 는 적절한 Provider 를 선택하여 인증을 하도록 넘겨준다.
         // Provider 는 받은 값을 UserDetailsService 의 loadUserByUsername 의 리턴값과 비교한다.
-        String username = obtainUsername(request);
+//        String username = obtainUsername(request);
+        String username = request.getParameter("email");
         String password = obtainPassword(request);
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, null);

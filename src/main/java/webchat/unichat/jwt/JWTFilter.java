@@ -60,7 +60,7 @@ public class JWTFilter extends OncePerRequestFilter {
         // 2. 인증 정보를 보관한다.
         Member member = new Member();
         member.setMemberId(Long.parseLong(memberId));
-        member.setLoginId(username);
+        member.setEmail(username);
         member.setPassword("temp");
         member.setRole(role);
 

@@ -20,11 +20,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<Member> byLoginId = memberRepository.findByLoginId(username);
+        Optional<Member> byEmail = memberRepository.findByEmail(username);
 
         // 조회된 member 가 있다.
-        if(byLoginId.isPresent()) {
-            Member member = byLoginId.get();
+        if(byEmail.isPresent()) {
+            Member member = byEmail.get();
             return new MemberDetails(member);
         }
 
