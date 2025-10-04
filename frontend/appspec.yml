@@ -17,3 +17,10 @@ permission:
     owner: ubuntu
     group: ubuntu
     mode: 755
+
+# test
+hooks:
+  AfterInstall:
+    - location: test.sh
+      timeout: 300
+      runas: root
