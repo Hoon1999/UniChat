@@ -47,24 +47,32 @@ public class LoginController {
     public String registerForm() {
         return "register";
     }
+
+    /**
+     * 회원가입 form 을 받아서 처리하는 controller
+     *
+     * form 의 데이터를 Member 객체에 담아서 회원가입 로직을 처리하는 Service 로 넘깁니다.
+     * form 은 name, email, password 를 가집니다.
+     *
+     * @return
+     */
     @PostMapping(value = "/register")
     @ResponseBody
     public String register(MemberForm form) {
         Member member = new Member();
-        member.setLoginId(form.getLoginId());
         member.setPassword(bCryptPasswordEncoder.encode(form.getPassword()));
         member.setEmail(form.getEmail());
         member.setName(form.getName());
-        member.setQuestion(form.getQuestion());
-        member.setAnswer(form.getAnswer());
 
-        boolean result = memberService.signUp(member);
-
-//        return "redirect:/";
-        if(result)
-            return "success";
-        else
+        try {
+            boolean result = memberService.signUp(member);
+            if(result)
+                return "success";
+            else
+                return "exist";
+        } catch(Exception e) {
             return "fail";
+        }
     }
 
     @PostMapping(value = "/register/check-duplicate")

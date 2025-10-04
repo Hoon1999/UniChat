@@ -20,13 +20,11 @@ public class MemberService {
     }
 
     /**
-     * 회원가입
+     * DB 에 이메일을 조회 후 없는 이메일이면 회원을 추가합니다.
      */
     public boolean signUp(Member member) {
-        boolean isExist = memberRepository.existsByLoginIdOrEmail(member.getLoginId(), member.getEmail());
+        boolean isExist = memberRepository.existsByEmail(member.getEmail());
         if(isExist) {
-            System.out.println("exist");
-
             return false;
         }
         member.setRole("USER");
