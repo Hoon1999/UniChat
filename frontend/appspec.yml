@@ -7,7 +7,7 @@ os: linux
 # 즉 다음 내용은 appspec.yml 파일이 위치한 경로에 있는 모든 파일을 destination 으로 복사한다.
 files:
   - source: /
-    destination: /var/www/html/dist
+    destination: /var/www/html
     overwrite: yes
 
 # 권한 부여
