@@ -119,7 +119,9 @@ jobs:
         working-directory: ./frontend
 
       - name: Make zip file
-        run: zip -r ./${GITHUB_SHA}_frontend.zip ./frontend/dist
+        run: |
+          cd frontend
+          zip -r ../${GITHUB_SHA}_frontend.zip ./appspec.yml ./dist
         shell: bash
 
       # Github action secret 에서 값을 가져온다.
