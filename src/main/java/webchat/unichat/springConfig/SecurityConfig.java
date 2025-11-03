@@ -52,8 +52,8 @@ public class SecurityConfig {
                 .requestMatchers( "/", "/login", "/register", "/findId", "/findPw").permitAll()
                 .requestMatchers( "login_page", "/register/check-duplicate", "/chatting_room_list").permitAll()
                 .requestMatchers("/admin").hasRole("ADMIN")
-//                .anyRequest().permitAll());
-                .anyRequest().authenticated());
+                .anyRequest().permitAll());
+//                .anyRequest().authenticated());
 
         // 5. session 을 stateless 로 설정
         http.sessionManagement((session) -> session
